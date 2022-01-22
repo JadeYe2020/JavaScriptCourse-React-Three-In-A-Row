@@ -41,29 +41,36 @@
         // if there's no streak, return 0
         if (diff.indexOf(1) === -1) {
             return 0;
-        } else {
+        } else {           
+            
             // confirm the where the streak starts and how long it is
             let start = arr[diff.indexOf(1)];
             let len = 2;
 
-            for (let i = diff.indexOf(1); i < diff.length; i++) {
-                if (diff[i] === 1 && diff[i+1] === 1) {
-                    len++;
-                } else if () {
+            // create a 2d array to store the streaks
+            const streaks = [];
 
+            for (let i = diff.indexOf(1)+1; i < diff.length; i++) {
+                if (diff[i] === 1) {
+                    len++;
+                    if (start == null) {
+                        start = arr[i]
+                    }
+                } else {
+                    
+                    if (start != null) {
+                        streaks.push([start, len]);
+                    }
+
+                    start = null;
+                    len = 1;
                 }               
             }
 
-        }
-
-        
-
-
-
-
+            console.log(streaks);
+        }     
         console.log(diff);
-
-        
+                
     }
 
 
