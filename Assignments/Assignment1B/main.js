@@ -68,8 +68,27 @@
             }
 
             console.log(streaks);
+
+            start = streaks[0][0];
+            len = streaks[0][1];
+
+            for (let i = 0; i < streaks.length; i++) {
+                if (streaks[i][1] > len) {
+                    len = streaks[i][1];
+                    start = streaks[i][0];
+                    
+                } else if (streaks[i][1] === len) {
+                    if (streaks[i][0] > start) {
+                        start = streaks[i][0];
+                    }
+                }              
+            }
+
+            console.log(start);
+            console.log(len);
         }     
         console.log(diff);
+
                 
     }
 
