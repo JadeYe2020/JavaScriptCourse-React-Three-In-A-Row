@@ -31,22 +31,51 @@
     console.log("Question 2:");
 
     function sumOfStreak(arr) {
-        // create an array to store the longest streak
-        const streak = [0];
+        // create an array to store the difference between 2 consecutive numbers
+        const diff = [];
 
-        for (let i = 0; i < arr.length; i++) {
-            const element = arr[i];
-            
+        for (let i = 0; i < arr.length-1; i++) {
+            diff.push(arr[i+1] - arr[i]);
         }
 
+        // if there's no streak, return 0
+        if (diff.indexOf(1) === -1) {
+            return 0;
+        } else {
+            // confirm the where the streak starts and how long it is
+            let start = arr[diff.indexOf(1)];
+            let len = 2;
+
+            for (let i = 0; i < diff.length; i++) {
+                if (diff[i] === 1) {
+                    
+                }                
+            }
+
+        }
+
+        
+
+
+
+
+        console.log(diff);
+
+        
     }
 
 
     const arr1 = [3, 2, 7, 5, 6, 7, 3, 8, 9, 10, 23, 2, 1, 2, 3];
-    console.log("The longest sum of " + arr1 + " = " + sumOfStreak(arr1));
+    sumOfStreak(arr1)
+    // console.log("The longest sum of " + arr1 + " = " + sumOfStreak(arr1));
 
     const arr2 = [100, 101, 102, 3, 4, 5, 6, 9];
-    console.log("The longest sum of " + arr2 + " = " + sumOfStreak(arr2));
+    sumOfStreak(arr2)
+    // console.log("The longest sum of " + arr2 + " = " + sumOfStreak(arr2));
+
+    const arr3 = [9, 8, 7, 6];
+    sumOfStreak(arr3)
+    // console.log("The longest sum of " + arr3 + " = " + sumOfStreak(arr3));
 
 })();
 
