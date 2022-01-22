@@ -4,7 +4,7 @@
 
     function cutOrFlip(str) {       
         // convert the string into a character array
-        const strArr = str.split("");
+        const strArr = str.split("");   //ref: https://www.w3schools.com/js/js_array_methods.asp
 
         // check if the first and last characters of the string are the same letter
         if (strArr[0].toUpperCase() !== strArr[str.length - 1].toUpperCase()) {
@@ -15,11 +15,11 @@
 
         } else {    
             // if they are the same letters, reverse the character order                       
-            strArr.reverse();
+            strArr.reverse();   // ref: https://www.w3schools.com/js/js_array_sort.asp
         }
 
         // Joins all charaters into a string
-        return strArr.join("");        
+        return strArr.join("");    //ref: https://www.w3schools.com/js/js_array_methods.asp
     }
 
     console.log(cutOrFlip("Triscuit"));
@@ -46,10 +46,12 @@
             let start = arr[diff.indexOf(1)];
             let len = 2;
 
-            for (let i = 0; i < diff.length; i++) {
-                if (diff[i] === 1) {
-                    
-                }                
+            for (let i = diff.indexOf(1); i < diff.length; i++) {
+                if (diff[i] === 1 && diff[i+1] === 1) {
+                    len++;
+                } else if () {
+
+                }               
             }
 
         }
