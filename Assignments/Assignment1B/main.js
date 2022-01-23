@@ -153,12 +153,85 @@
      + minToBd + " minutes, and " + secToBd + " seconds until my next birthday!");
 
 })();
+
+//-------Q4-------
+(function() {
+    console.log("Question 4:");
+
+    // create a function to check if one positive integer is a prime number. ref: https://www.geeksforgeeks.org/prime-numbers/    
+    function isPrime(num, i) {                
+
+        // corner case
+        if (num === 1) {
+            return false;
+        }
+
+        // base case
+        if (typeof(i) == "undefined") {
+            var i = 2;
+        }
+
+        if (num === i) {
+            // 2 is the first prime number
+            return true;
+        }
+
+        // check if it's divisible by 2 or bigger integer
+        if (num % i === 0) {            
+            return false;
+        }
+        
+        i++;
+        // call the method recursively to test the division with a bigger number until it returns a result.
+        return isPrime(num, i);
+    }
+
+    console.log(isPrime(23));
+
+    // generate an array of 10 random numbers among the range of 1 to 200
+    const tenNums = [];
+
+    for (let i = 0; i < 10; i++) {
+        tenNums[i] = Math.floor(Math.random() * 200) + 1;        
+    }
+
+    console.log(tenNums);
+
+    // create a method to go through an array and display the results
+    function showIfPrime(arr) {
+        let result = "";
+        let output = "";
+
+        for (let i = 0; i < arr.length; i++) {
+            
+            if (isPrime(arr[i])) {
+                result = "yes";
+            } else {
+                result = "no";
+            }
+
+            if (i !== arr.length - 1) {
+                output += arr[i] + "-" + result + ", ";
+            } else {
+                output += arr[i] + "-" + result;
+            }         
+        }
+
+        return output;
+    }
+
+    console.log(showIfPrime(tenNums));
+    console.log(showIfPrime([23, 15, 22, 124, 11, 9, 2, 13, 5, 1]));
+
+})();
+
 /*
-Question 3
-Write a JavaScript program to calculate the number of weeks, days, hours, minutes and seconds left until midnight
- on your birthday.
-•	The script does not have to prompt for your birthdate. Simply assign it to a variable and start from there.
-o	Ex: var myNextBirthday = …your code here
-•	Expected sample output (console.log()):
-o	There are 35 weeks, 3 days, 13 hours, 25 minutes, and 12 seconds until my next birthday!
+Question 4
+Write a JavaScript program to iterate through an array of ten(10) positive randomly generated numbers.
+ Each number will then be checked to see if it’s a prime number.
+
+•	Sample Expected output (console.log()).
+
+23-yes, 15-no, 22-no, 124-no, 11-yes, 9-no, 2-yes, 13-yes, 5-yes, 1-no
+
 */
