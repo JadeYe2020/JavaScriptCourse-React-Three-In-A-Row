@@ -168,36 +168,33 @@
 
         // base case
         if (typeof(i) == "undefined") {
+            // start from 2, the first prime number
             var i = 2;
         }
 
-        if (num === i) {
-            // 2 is the first prime number
+        if (num === i) {    
+            // when the iteration reaches the scenario where the division happens between the number and itself,
+            // the number is considered as a prime number
             return true;
         }
 
-        // check if it's divisible by 2 or bigger integer
+        // check if it's divisible by 2 or a bigger integer
         if (num % i === 0) {            
             return false;
         }
-        
-        i++;
+                
         // call the method recursively to test the division with a bigger number until it returns a result.
+        i++;
         return isPrime(num, i);
     }
 
-    console.log(isPrime(23));
-
     // generate an array of 10 random numbers among the range of 1 to 200
     const tenNums = [];
-
     for (let i = 0; i < 10; i++) {
         tenNums[i] = Math.floor(Math.random() * 200) + 1;        
-    }
+    }    
 
-    console.log(tenNums);
-
-    // create a method to go through an array and display the results
+    // create a method to go through an array and return a string of the results
     function showIfPrime(arr) {
         let result = "";
         let output = "";
@@ -220,18 +217,7 @@
         return output;
     }
 
-    console.log(showIfPrime(tenNums));
-    console.log(showIfPrime([23, 15, 22, 124, 11, 9, 2, 13, 5, 1]));
-
+    console.log("Random array: [" + tenNums + "]");
+    console.log("Results: " + showIfPrime(tenNums));
+    
 })();
-
-/*
-Question 4
-Write a JavaScript program to iterate through an array of ten(10) positive randomly generated numbers.
- Each number will then be checked to see if it’s a prime number.
-
-•	Sample Expected output (console.log()).
-
-23-yes, 15-no, 22-no, 124-no, 11-yes, 9-no, 2-yes, 13-yes, 5-yes, 1-no
-
-*/
