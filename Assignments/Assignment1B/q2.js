@@ -48,7 +48,7 @@
         len = streaks[0][1];
 
         // loop through the 2d array to find the longest streak
-        for (let i = 0; i < streaks.length; i++) {
+        for (let i = 1; i < streaks.length; i++) {
             
             if (streaks[i][1] > len) {
                 // if a longer streak is found, update the 2 parameter values
