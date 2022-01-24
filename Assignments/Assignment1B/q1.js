@@ -24,7 +24,11 @@
 
     let str1 = "Triscuit";
     let str2 = "Cracker";
+    let str3 = "Oreo";
+    let str4 = "JavaScript";
 
     console.log("Before: " + str1 + " & After: " + cutOrFlip(str1));
     console.log("Before: " + str2 + " & After: " + cutOrFlip(str2));
+    console.log("Before: " + str3 + " & After: " + cutOrFlip(str3));
+    console.log("Before: " + str4 + " & After: " + cutOrFlip(str4));
 })();
