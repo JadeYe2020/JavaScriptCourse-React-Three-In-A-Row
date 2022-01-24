@@ -2,15 +2,16 @@
 (function(){
     console.log("Question 3:");
 
+    // Initialize the next birthday date and the current date. ref: https://www.w3schools.com/js/js_dates.asp
     const bDay = new Date(2022, 8, 1, 0, 0, 0);
     const now = new Date();
 
     console.log("Next birthday: " + bDay);
     console.log("Now: " + now);
 
-    // the time left in milliseconds
-    let msToBd = bDay.getTime() - now.getTime();
-    // the time left in seconds
+    // Calculate how much time left in milliseconds
+    let msToBd = bDay.getTime() - now.getTime();    // ref: https://www.w3schools.com/js/js_date_methods.asp
+    // convert milliseconds to seconds
     let secToBd = Math.round(msToBd / 1000);
 
     // the time left in minutes
