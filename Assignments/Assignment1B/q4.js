@@ -32,10 +32,12 @@
         return isPrime(num, i);
     }
 
-    // generate an array of 10 random numbers among the range of 1 to 200
+    // generate 2 arrays of 10 random numbers among the range of 1 to 200
     const tenNums = [];
+    const tenNums2 = [];
     for (let i = 0; i < 10; i++) {
-        tenNums[i] = Math.floor(Math.random() * 200) + 1;        
+        tenNums[i] = Math.floor(Math.random() * 200) + 1;
+        tenNums2[i] = Math.floor(Math.random() * 200) + 1;        
     }    
 
     // create a method to go through an array and return a string of the results
@@ -61,7 +63,9 @@
         return output;
     }
 
-    console.log("Random array: [" + tenNums + "]");
+    console.log("Random array 1: [" + tenNums + "]");
     console.log("Results: " + showIfPrime(tenNums));
+    console.log("Random array 2: [" + tenNums2 + "]");
+    console.log("Results: " + showIfPrime(tenNums2));
     
 })();
