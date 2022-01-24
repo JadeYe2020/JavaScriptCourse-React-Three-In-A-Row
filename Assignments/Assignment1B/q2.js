@@ -32,7 +32,7 @@
                     streaks.push([start, len]);
                     // and then reset the values of the variables for the next iteration
                     len = 1;
-                    start = "";
+                    start = null;
                 }
             }
         }
