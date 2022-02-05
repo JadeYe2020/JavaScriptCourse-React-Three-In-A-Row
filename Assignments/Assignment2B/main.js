@@ -17,8 +17,14 @@
             });
 
             output += "</ul></td>";
-            output += "<td>" + item.stars + "</td>";
-            output += "</tr>";
+            output += "<td>";
+
+            item.starList.forEach(star => {
+                output += star.name + "<br/>";
+            });
+
+
+            output += "</td></tr>";
         });
 
 
