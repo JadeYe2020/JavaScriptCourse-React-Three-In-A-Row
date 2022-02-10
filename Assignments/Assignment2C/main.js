@@ -1,10 +1,10 @@
 (() => {
+    
     const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';    
     
+    // a function to return the api url of drawing cards from a specific deck
     function getCards(deck, numCards) {        
-        const cardsUrl = 'https://deckofcardsapi.com/api/deck/' + deck.deck_id + '/draw/?count=' + numCards;
-
-        return cardsUrl;
+        return 'https://deckofcardsapi.com/api/deck/' + deck.deck_id + '/draw/?count=' + numCards;
     }
 
     fetch(deckAPIurl)
@@ -15,20 +15,19 @@
         fetch(cardsUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // an array to store the cards' values
+            const myCards = [];
+
+            // go through the cards to get the images and store the card value
+            data.cards.forEach(card => {
+                // populate the array with subarrays of card value and suit
+                myCards.push(card.code.split(''));
+
+
+            });
+            console.log(myCards);
+            console.log(myCards[0][0]);
         })
     });
-    
-    // var myDeck = {};
 
-    
-
-    // myDeck = fetch(deckAPIurl)
-    // .then(response => response.json())
-    // .then(data => data)
-    // .catch((error) => {
-    //     console.error('Error:', error);
-    // });
-    
-    // console.log(myDeck);
 })()
