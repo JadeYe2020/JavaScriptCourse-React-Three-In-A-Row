@@ -1,37 +1,34 @@
 (() => {
     
-    const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';    
+    const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+    const numCards = 5;    
     
-    // a function to return the api url of drawing cards from a specific deck
-    function getCards(deck, numCards) {        
-        return 'https://deckofcardsapi.com/api/deck/' + deck.deck_id + '/draw/?count=' + numCards;
-    }
-
     fetch(deckAPIurl)
     .then(response => response.json())
     .then(data => {
-        var cardsUrl = getCards(data, 5);
+        // use the deck_id to form a new api url to get 5 cards
+        const cardsUrl = 'https://deckofcardsapi.com/api/deck/' + data.deck_id + '/draw/?count=' + numCards;
 
-        fetch(cardsUrl)
-        .then(response => response.json())
-        .then(data => {
-            // an array to store the cards' values
-            const myCards = [];
+        return fetch(cardsUrl);        
+    })
+    .then(response2 => response2.json())
+    .then(data2 => {
+        // an array to store the cards' values
+        const myCards = [];
 
-            var htmlOutput = "";
+        var htmlOutput = "";
 
-            // go through the cards to get the images and store the card value
-            data.cards.forEach(card => {
-                // populate the array with subarrays of card value and suit
-                myCards.push(card.code.split(''));                
+        // go through the cards to get the images and store the card value
+        data2.cards.forEach(card => {
+            // populate the array with subarrays of card value and suit
+            myCards.push(card.code.split(''));                
 
-                htmlOutput += "<img src='" + card.image + "'>";                
-            });
+            htmlOutput += "<img src='" + card.image + "'/>";                
+        });
 
-            document.querySelector("#cards").innerHTML = htmlOutput;
+        document.querySelector("#cards").innerHTML = htmlOutput;
 
-            // console.log(myCards);
-        })
+        
     });
 
 })()
