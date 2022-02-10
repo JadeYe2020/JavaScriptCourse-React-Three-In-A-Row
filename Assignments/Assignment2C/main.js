@@ -18,15 +18,19 @@
             // an array to store the cards' values
             const myCards = [];
 
+            var htmlOutput = "";
+
             // go through the cards to get the images and store the card value
             data.cards.forEach(card => {
                 // populate the array with subarrays of card value and suit
-                myCards.push(card.code.split(''));
+                myCards.push(card.code.split(''));                
 
-
+                htmlOutput += "<img src='" + card.image + "'>";                
             });
-            console.log(myCards);
-            console.log(myCards[0][0]);
+
+            document.querySelector("#cards").innerHTML = htmlOutput;
+
+            // console.log(myCards);
         })
     });
 
