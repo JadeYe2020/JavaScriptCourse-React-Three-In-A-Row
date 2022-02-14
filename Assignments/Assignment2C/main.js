@@ -8,11 +8,13 @@
         var loopSize = numCards - 1;
 
         if (valuesSorted[0] === values.indexOf('2') && valuesSorted[numCards - 1] === values.indexOf('A') ) {
+            // if the lowest value is 2 while the highest is Ace, then only check the first 4 cards
             loopSize --;
         }
 
         for (let i = 0; i < loopSize; i++) {
             if ((valuesSorted[i+1] - valuesSorted[i]) !== 1) {
+                // any not consecutive values, returns false
                 return false;                
             }
         }
@@ -21,67 +23,67 @@
     }
 
     function rankHand(hand, isStraight) {
-                
-        // hand = [['Q', 'H'], ['A', 'H'], ['8', 'H'], ['K', 'H'], ['4', 'H']];  // hard code flush
-        // hand = [['2', 'D'], ['5', 'H'], ['A', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight A-5
-        // hand = [['2', 'D'], ['5', 'H'], ['6', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight 2-6
 
-        const valueIndexes = [];
-        const numValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        const numSuits = [0, 0, 0, 0];
+        const valueIndexes = []; // store the cards' values in the format of indexes
+        const numValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // to store the number of each value the hand has
+        const numSuits = [0, 0, 0, 0]; // to store the number of each suit the hand has
 
         for (let i = 0; i < hand.length; i++) {
             var valIndex = values.indexOf(hand[i][0]);
-            numValues[valIndex] ++;
+            numValues[valIndex] ++; // increment the number of that specific value, stored in an array
 
-            valueIndexes.push(valIndex);
+            valueIndexes.push(valIndex); // store the index number into another array
 
             var suitIndex = suits.indexOf(hand[i][1]);
-            numSuits[suitIndex] ++;
+            numSuits[suitIndex] ++; // increment the number of that specific suit, stored in an array
         }
 
-        valueIndexes.sort((a, b) => a - b); // reference: https://www.w3schools.com/js/js_array_sort.asp
-        numValues.sort((a, b) => b - a); // sorted from highest to lowest
+        // sort the 5 values from the lowest to the highest. reference: https://www.w3schools.com/js/js_array_sort.asp
+        valueIndexes.sort((a, b) => a - b); 
+        // sort the number of each value the hand has, from the highest to these lowest
+        numValues.sort((a, b) => b - a); 
 
-        if (numSuits.indexOf(5) === -1) { //when no flush
+        if (numSuits.indexOf(5) === -1) { //when no flush (the hand doesn't have 5 of any suit)
+            // check if there're 4 same values
             if (numValues[0] === 4) {
                 console.log("A Four of a kind!");
 
-            } else if (numValues[0] === 3 && numValues[1] === 2) {
+            } else if (numValues[0] === 3 && numValues[1] === 2) { 
+                // if not, then check if there are 3 same values and the other 2 cards are a pair
                 console.log("A Fullhouse!");
 
-            } else if (numValues[0] === 1 && isStraight(valueIndexes)) {
-                console.log("A straight!");
+            } else if (isStraight(valueIndexes)) {
+                // if not, then check if it's a straight
+                return "A straight!";
 
             } else if (numValues[0] === 3 && numValues[1] !== 2) {
+                // if not, then check if there are 3 same values but the other 2 cards are not a pair
                 console.log("A three of a kind!");
 
             } else if (numValues[0] === 2 && numValues[1] === 2) {
+                // if not, then check if there are 2 pairs
                 console.log("A Two pair!");
 
             } else if (numValues[0] === 2 && numValues[1] === 1) {
+                // if not, then check if there only 1 pair
                 console.log("A pair!");
 
-            } else {
+            } else { // the remaining situation is a high card
                 console.log("High card!");
             }
 
         } else if (isStraight(valueIndexes)) { // when it's a flush and a straight at the same time
             if (valueIndexes[0] === values.indexOf('0')) {
+                // check if the lowest card is 10. if so, it's a royal flush
                 console.log("A ROYAL FLUSH!");
-            } else {
+            } else { // if not, it's only a straight flush
                 console.log("A STRAIGHT FLUSH!");
             }
-        } else {
+        } else { // if the flush is not a straight, then it's just a plain flush
             console.log("A FLUSH!");
         }
 
-        console.log(numValues);
-        
-        // console.log(isStraight);
-
-        // console.log(valueIndexes);
-        // console.log(numSuits);
+        // console.log(numValues);
     }
     
     const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
@@ -103,13 +105,13 @@
         // Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
         // Straight
-        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
+        const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
         // Three of a kind
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/threeofakind";
         // Two Pair
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/twopair";
         // One Pair
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/onepair";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/onepair";
         // High Card
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/highcard";
 
@@ -133,9 +135,9 @@
             htmlOutput += "<img src='" + card.image + "'/>";                
         });
 
-        console.log(myCards);
+        // console.log(myCards);
 
-        rankHand(myCards, isStraight);
+        htmlOutput += "<p>You have " + rankHand(myCards, isStraight) + "</p>";
 
         document.querySelector("#cards").innerHTML = htmlOutput;
 
