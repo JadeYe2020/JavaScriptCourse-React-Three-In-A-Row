@@ -27,7 +27,7 @@
         // hand = [['2', 'D'], ['5', 'H'], ['6', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight 2-6
 
         const valueIndexes = [];
-        const numValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const numValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         const numSuits = [0, 0, 0, 0];
 
         for (let i = 0; i < hand.length; i++) {
@@ -41,27 +41,43 @@
         }
 
         valueIndexes.sort((a, b) => a - b); // reference: https://www.w3schools.com/js/js_array_sort.asp
+        numValues.sort((a, b) => b - a); // sorted from highest to lowest
 
-        if (numSuits.indexOf(5) === -1) {
-            if (numValues.indexOf(4) !== -1) {
+        if (numSuits.indexOf(5) === -1) { //when no flush
+            if (numValues[0] === 4) {
                 console.log("A Four of a kind!");
-            } else if (numValues.indexOf(3) !== -1 && numValues.indexOf(2) !== -1) {
+
+            } else if (numValues[0] === 3 && numValues[1] === 2) {
                 console.log("A Fullhouse!");
-            }
 
-        } else {
-            if (isStraight(valueIndexes)) {
-                if (valueIndexes[0] === values.indexOf('0')) {
-                    console.log("A ROYAL FLUSH!");
-                } else {
-                    console.log("A STRAIGHT FLUSH!");
-                }
+            } else if (numValues[0] === 1 && isStraight(valueIndexes)) {
+                console.log("A straight!");
+
+            } else if (numValues[0] === 3 && numValues[1] !== 2) {
+                console.log("A three of a kind!");
+
+            } else if (numValues[0] === 2 && numValues[1] === 2) {
+                console.log("A Two pair!");
+
+            } else if (numValues[0] === 2 && numValues[1] === 1) {
+                console.log("A pair!");
+
             } else {
-                // need to also check if it's full house or four of a kind
-                console.log("A FLUSH!");
+                console.log("High card!");
             }
-        }     
 
+        } else if (isStraight(valueIndexes)) { // when it's a flush and a straight at the same time
+            if (valueIndexes[0] === values.indexOf('0')) {
+                console.log("A ROYAL FLUSH!");
+            } else {
+                console.log("A STRAIGHT FLUSH!");
+            }
+        } else {
+            console.log("A FLUSH!");
+        }
+
+        console.log(numValues);
+        
         // console.log(isStraight);
 
         // console.log(valueIndexes);
@@ -83,7 +99,7 @@
         // Four of a kind
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fourofakind";
         // Full House
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
         // Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
         // Straight
@@ -93,7 +109,7 @@
         // Two Pair
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/twopair";
         // One Pair
-        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/onepair";
+        const cardsUrl = "http://pokerhand-tester.herokuapp.com/onepair";
         // High Card
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/highcard";
 
