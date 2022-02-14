@@ -6,13 +6,18 @@
         
         hand = [['Q', 'H'], ['A', 'H'], ['8', 'H'], ['K', 'H'], ['4', 'H']];
         const valueIndexes = [];
+        const numSuits = [0, 0, 0, 0];
 
         for (let i = 0; i < hand.length; i++) {            
             valueIndexes.push(values.indexOf(hand[i][0]));
+
+            var suitIndex = suits.indexOf(hand[i][1]);
+            numSuits[suitIndex] ++;
         }
 
         valueIndexes.sort((a, b) => a - b); // reference: https://www.w3schools.com/js/js_array_sort.asp
         console.log(valueIndexes);
+        console.log(numSuits);
     }
     
     const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
