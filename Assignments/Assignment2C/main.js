@@ -27,10 +27,14 @@
         // hand = [['2', 'D'], ['5', 'H'], ['6', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight 2-6
 
         const valueIndexes = [];
+        const numValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         const numSuits = [0, 0, 0, 0];
 
-        for (let i = 0; i < hand.length; i++) {            
-            valueIndexes.push(values.indexOf(hand[i][0]));
+        for (let i = 0; i < hand.length; i++) {
+            var valIndex = values.indexOf(hand[i][0]);
+            numValues[valIndex] ++;
+
+            valueIndexes.push(valIndex);
 
             var suitIndex = suits.indexOf(hand[i][1]);
             numSuits[suitIndex] ++;
@@ -38,7 +42,12 @@
 
         valueIndexes.sort((a, b) => a - b); // reference: https://www.w3schools.com/js/js_array_sort.asp
 
-        if (numSuits.indexOf(5) !== -1) {
+        if (numSuits.indexOf(5) === -1) {
+            if (numValues.indexOf(4) !== -1) {
+                console.log("A Four of a kind!");
+            }
+
+        } else {
             if (isStraight(valueIndexes)) {
                 if (valueIndexes[0] === values.indexOf('0')) {
                     console.log("A ROYAL FLUSH!");
@@ -57,7 +66,7 @@
         // console.log(numSuits);
     }
     
-    // const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+    const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
     
     fetch(deckAPIurl)
     .then(response => response.json())
@@ -66,11 +75,11 @@
         // const cardsUrl = 'https://deckofcardsapi.com/api/deck/' + data.deck_id + '/draw/?count=' + numCards;
 
         // Royal Flush
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/royalflush";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/royalflush";
         // Straight Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straightflush";
         // Four of a kind
-        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fourofakind";
+        const cardsUrl = "http://pokerhand-tester.herokuapp.com/fourofakind";
         // Full House
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
         // Flush
