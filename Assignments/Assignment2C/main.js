@@ -38,20 +38,18 @@
 
         valueIndexes.sort((a, b) => a - b); // reference: https://www.w3schools.com/js/js_array_sort.asp
 
-        // to check if it's a flush
         if (numSuits.indexOf(5) !== -1) {
-            if (!isStraight(valueIndexes)) {
-                console.log("A FLUSH!");
-            } else if (valueIndexes[0] !== values.indexOf('0')) {
-                console.log("A STRAIGHT FLUSH!");
+            if (isStraight(valueIndexes)) {
+                if (valueIndexes[0] === values.indexOf('0')) {
+                    console.log("A ROYAL FLUSH!");
+                } else {
+                    console.log("A STRAIGHT FLUSH!");
+                }
             } else {
-                console.log("A ROYAL FLUSH!");
-            }            
-        } else {
-            console.log("NOT A FLUSH!");
-        }
-
-     
+                // need to also check if it's full house or four of a kind
+                console.log("A FLUSH!");
+            }
+        }     
 
         // console.log(isStraight);
 
@@ -59,7 +57,7 @@
         // console.log(numSuits);
     }
     
-    const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+    // const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
     
     fetch(deckAPIurl)
     .then(response => response.json())
@@ -68,7 +66,7 @@
         // const cardsUrl = 'https://deckofcardsapi.com/api/deck/' + data.deck_id + '/draw/?count=' + numCards;
 
         // Royal Flush
-        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/royalflush";
+        const cardsUrl = "http://pokerhand-tester.herokuapp.com/royalflush";
         // Straight Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straightflush";
         // Four of a kind
@@ -76,7 +74,7 @@
         // Full House
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
         // Flush
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
         // Straight
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
         // Three of a kind
