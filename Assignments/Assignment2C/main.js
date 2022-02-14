@@ -1,8 +1,10 @@
-(() => {
+(() => { //IIFE
+    // basic constant values
     const numCards = 5;
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A'];
     const suits = ['D', 'C', 'H', 'S'];
 
+    // create a function to return a boolean result of whether a sorted array of card values form a straight
     const isStraight = (valuesSorted) => {
         var isStraight = true;
         var loopSize = numCards - 1;
@@ -18,16 +20,17 @@
                 return false;                
             }
         }
-
+        // if the loop finish without returning false, then the result should be true (default)
         return isStraight;
     }
 
-    function rankHand(hand, isStraight) {
+    function rankHand(hand, isStraight) { // pass in the new function
 
         const valueIndexes = []; // store the cards' values in the format of indexes
         const numValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // to store the number of each value the hand has
         const numSuits = [0, 0, 0, 0]; // to store the number of each suit the hand has
 
+        // loop through the hand and populate the arrays above
         for (let i = 0; i < hand.length; i++) {
             var valIndex = values.indexOf(hand[i][0]);
             numValues[valIndex] ++; // increment the number of that specific value, stored in an array
@@ -46,44 +49,43 @@
         if (numSuits.indexOf(5) === -1) { //when no flush (the hand doesn't have 5 of any suit)
             // check if there're 4 same values
             if (numValues[0] === 4) {
-                console.log("A Four of a kind!");
+                return "FOUR OF A KIND!";
 
             } else if (numValues[0] === 3 && numValues[1] === 2) { 
                 // if not, then check if there are 3 same values and the other 2 cards are a pair
-                console.log("A Fullhouse!");
+                return "FULLHOUSE!";
 
             } else if (isStraight(valueIndexes)) {
                 // if not, then check if it's a straight
-                return "A straight!";
+                return "STRAIGHT!";
 
             } else if (numValues[0] === 3 && numValues[1] !== 2) {
                 // if not, then check if there are 3 same values but the other 2 cards are not a pair
-                console.log("A three of a kind!");
+                return "THREE OF A KIND!";
 
             } else if (numValues[0] === 2 && numValues[1] === 2) {
                 // if not, then check if there are 2 pairs
-                console.log("A Two pair!");
+                return "TWO PAIR!";
 
             } else if (numValues[0] === 2 && numValues[1] === 1) {
                 // if not, then check if there only 1 pair
-                console.log("A pair!");
+                return "PAIR!";
 
             } else { // the remaining situation is a high card
-                console.log("High card!");
+                return "High Card!";
             }
 
         } else if (isStraight(valueIndexes)) { // when it's a flush and a straight at the same time
             if (valueIndexes[0] === values.indexOf('0')) {
                 // check if the lowest card is 10. if so, it's a royal flush
-                console.log("A ROYAL FLUSH!");
-            } else { // if not, it's only a straight flush
-                console.log("A STRAIGHT FLUSH!");
+                return "ROYAL FLUSH!";
+            } else { 
+                // if not, it's only a straight flush
+                return "STRAIGHT FLUSH!";
             }
         } else { // if the flush is not a straight, then it's just a plain flush
-            console.log("A FLUSH!");
+            return "FLUSH!";
         }
-
-        // console.log(numValues);
     }
     
     const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
@@ -92,7 +94,7 @@
     .then(response => response.json())
     .then(data => {
         // use the deck_id to form a new api url to get 5 cards
-        // const cardsUrl = 'https://deckofcardsapi.com/api/deck/' + data.deck_id + '/draw/?count=' + numCards;
+        const cardsUrl = 'https://deckofcardsapi.com/api/deck/' + data.deck_id + '/draw/?count=' + numCards;
 
         // Royal Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/royalflush";
@@ -105,7 +107,7 @@
         // Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
         // Straight
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
         // Three of a kind
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/threeofakind";
         // Two Pair
@@ -122,7 +124,7 @@
         
         console.log(data2.cards);
 
-        // an array to store the cards' values
+        // an array to store the cards' codes
         const myCards = [];
 
         var htmlOutput = "";
@@ -135,13 +137,10 @@
             htmlOutput += "<img src='" + card.image + "'/>";                
         });
 
-        // console.log(myCards);
+        // call the new function to get the ranking result and use it to build a paragraph.
+        htmlOutput += "<p>You have a " + rankHand(myCards, isStraight) + "</p>";
 
-        htmlOutput += "<p>You have " + rankHand(myCards, isStraight) + "</p>";
-
-        document.querySelector("#cards").innerHTML = htmlOutput;
-
-        
+        document.querySelector("#cards").innerHTML = htmlOutput;        
     });
 
 })()
