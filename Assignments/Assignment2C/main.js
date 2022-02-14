@@ -1,13 +1,13 @@
 (() => {
     const numCards = 5;
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A'];
     const suits = ['D', 'C', 'H', 'S'];
 
     const isStraight = (valuesSorted) => {
         var isStraight = true;
         var loopSize = numCards - 1;
 
-        if (valuesSorted[0] === values.indexOf('2') || valuesSorted[numCards - 1] === values.indexOf('A') ) {
+        if (valuesSorted[0] === values.indexOf('2') && valuesSorted[numCards - 1] === values.indexOf('A') ) {
             loopSize --;
         }
 
@@ -21,13 +21,11 @@
     }
 
     function rankHand(hand, isStraight) {
-        // const numCards = 5;
-        // const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-        // const suits = ['D', 'C', 'H', 'S'];
-        
+                
         // hand = [['Q', 'H'], ['A', 'H'], ['8', 'H'], ['K', 'H'], ['4', 'H']];  // hard code flush
-        hand = [['2', 'D'], ['5', 'H'], ['A', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight A-5
+        // hand = [['2', 'D'], ['5', 'H'], ['A', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight A-5
         // hand = [['2', 'D'], ['5', 'H'], ['6', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight 2-6
+
         const valueIndexes = [];
         const numSuits = [0, 0, 0, 0];
 
@@ -40,11 +38,22 @@
 
         valueIndexes.sort((a, b) => a - b); // reference: https://www.w3schools.com/js/js_array_sort.asp
 
-        var isStraight = isStraight(valueIndexes);
+        // to check if it's a flush
+        if (numSuits.indexOf(5) !== -1) {
+            if (!isStraight(valueIndexes)) {
+                console.log("A FLUSH!");
+            } else if (valueIndexes[0] !== values.indexOf('0')) {
+                console.log("A STRAIGHT FLUSH!");
+            } else {
+                console.log("A ROYAL FLUSH!");
+            }            
+        } else {
+            console.log("NOT A FLUSH!");
+        }
 
      
 
-        console.log(isStraight);
+        // console.log(isStraight);
 
         // console.log(valueIndexes);
         // console.log(numSuits);
@@ -67,9 +76,9 @@
         // Full House
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
         // Flush
-        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
+        const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
         // Straight
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
         // Three of a kind
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/threeofakind";
         // Two Pair
@@ -83,6 +92,9 @@
     })
     .then(response2 => response2.json())
     .then(data2 => {
+        
+        console.log(data2.cards);
+
         // an array to store the cards' values
         const myCards = [];
 
