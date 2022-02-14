@@ -1,10 +1,33 @@
 (() => {
-    
-    function rankHand(hand) {
-        const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-        const suits = ['D', 'C', 'H', 'S'];
+    const numCards = 5;
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const suits = ['D', 'C', 'H', 'S'];
+
+    const isStraight = (valuesSorted) => {
+        var isStraight = true;
+        var loopSize = numCards - 1;
+
+        if (valuesSorted[0] === values.indexOf('2') || valuesSorted[numCards - 1] === values.indexOf('A') ) {
+            loopSize --;
+        }
+
+        for (let i = 0; i < loopSize; i++) {
+            if ((valuesSorted[i+1] - valuesSorted[i]) !== 1) {
+                return false;                
+            }
+        }
+
+        return isStraight;
+    }
+
+    function rankHand(hand, isStraight) {
+        // const numCards = 5;
+        // const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+        // const suits = ['D', 'C', 'H', 'S'];
         
-        hand = [['Q', 'H'], ['A', 'H'], ['8', 'H'], ['K', 'H'], ['4', 'H']];
+        // hand = [['Q', 'H'], ['A', 'H'], ['8', 'H'], ['K', 'H'], ['4', 'H']];  // hard code flush
+        hand = [['2', 'D'], ['5', 'H'], ['A', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight A-5
+        // hand = [['2', 'D'], ['5', 'H'], ['6', 'C'], ['3', 'C'], ['4', 'C']];  // hard code straight 2-6
         const valueIndexes = [];
         const numSuits = [0, 0, 0, 0];
 
@@ -16,12 +39,18 @@
         }
 
         valueIndexes.sort((a, b) => a - b); // reference: https://www.w3schools.com/js/js_array_sort.asp
-        console.log(valueIndexes);
-        console.log(numSuits);
+
+        var isStraight = isStraight(valueIndexes);
+
+     
+
+        console.log(isStraight);
+
+        // console.log(valueIndexes);
+        // console.log(numSuits);
     }
     
     const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
-    const numCards = 5;    
     
     fetch(deckAPIurl)
     .then(response => response.json())
@@ -38,9 +67,9 @@
         // Full House
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
         // Flush
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
         // Straight
-        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
+        const cardsUrl = "http://pokerhand-tester.herokuapp.com/straight";
         // Three of a kind
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/threeofakind";
         // Two Pair
@@ -69,7 +98,7 @@
 
         console.log(myCards);
 
-        rankHand(myCards);
+        rankHand(myCards, isStraight);
 
         document.querySelector("#cards").innerHTML = htmlOutput;
 
