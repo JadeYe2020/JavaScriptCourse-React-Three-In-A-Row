@@ -45,6 +45,8 @@
         if (numSuits.indexOf(5) === -1) {
             if (numValues.indexOf(4) !== -1) {
                 console.log("A Four of a kind!");
+            } else if (numValues.indexOf(3) !== -1 && numValues.indexOf(2) !== -1) {
+                console.log("A Fullhouse!");
             }
 
         } else {
@@ -79,9 +81,9 @@
         // Straight Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/straightflush";
         // Four of a kind
-        const cardsUrl = "http://pokerhand-tester.herokuapp.com/fourofakind";
+        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fourofakind";
         // Full House
-        // const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
+        const cardsUrl = "http://pokerhand-tester.herokuapp.com/fullhouse";
         // Flush
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/flush";
         // Straight
