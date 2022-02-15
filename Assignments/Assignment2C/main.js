@@ -7,8 +7,8 @@
     const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
 
     // create a function to return a boolean result of whether a sorted array of card values form a straight
-    const isStraight = (valuesSorted) => {
-        var isStraight = true;
+    const isStraight = (valuesSorted) => {        
+        
         var loopSize = numCards - 1;
 
         if (valuesSorted[0] === values.indexOf('2') && valuesSorted[numCards - 1] === values.indexOf('A') ) {
@@ -22,8 +22,8 @@
                 return false;                
             }
         }
-        // if the loop finish without returning false, then the result should be true (default)
-        return isStraight;
+        // if the loop finish without returning false, then the result should be true
+        return true;
     }
 
     function rankHand(hand, isStraight) { // pass in the new function
