@@ -4,6 +4,8 @@
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A'];
     const suits = ['D', 'C', 'H', 'S'];
 
+    const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+
     // create a function to return a boolean result of whether a sorted array of card values form a straight
     const isStraight = (valuesSorted) => {
         var isStraight = true;
@@ -27,13 +29,18 @@
     function rankHand(hand, isStraight) { // pass in the new function
 
         const valueIndexes = []; // store the cards' values in the format of indexes
-        const numValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // to store the number of each value the hand has
         const numSuits = [0, 0, 0, 0]; // to store the number of each suit the hand has
+        
+        // an array of 13 numbers, to store the number of each value the hand has
+        const numValues = [];
+        for (let i = 0; i < values.length; i++) {
+            numValues.push(0);            
+        }        
 
-        // loop through the hand and populate the arrays above
+        // loop through the hand and populate or update the arrays above
         for (let i = 0; i < hand.length; i++) {
             var valIndex = values.indexOf(hand[i][0]);
-            numValues[valIndex] ++; // increment the number of that specific value, stored in an array
+            numValues[valIndex] ++; // increment the number of that specific card value
 
             valueIndexes.push(valIndex); // store the index number into another array
 
@@ -88,8 +95,7 @@
         }
     }
     
-    const deckAPIurl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
-    
+    // fecth API data    
     fetch(deckAPIurl)
     .then(response => response.json())
     .then(data => {
@@ -117,13 +123,10 @@
         // High Card
         // const cardsUrl = "http://pokerhand-tester.herokuapp.com/highcard";
 
-        return fetch(cardsUrl);        
+        return fetch(cardsUrl);  // chain a second fetch to get the data of individual card
     })
     .then(response2 => response2.json())
-    .then(data2 => {
-        
-        console.log(data2.cards);
-
+    .then(data2 => {       
         // an array to store the cards' codes
         const myCards = [];
 
