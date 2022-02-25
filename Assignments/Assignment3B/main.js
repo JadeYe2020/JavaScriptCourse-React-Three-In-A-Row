@@ -73,95 +73,111 @@
 
 	// Define the required ten functions below this line...
     function getGuntherCount(json) {
-        return json._embedded.episodes.filter((episode) => episode.summary.includes("Gunther"))
-        .length;
+        return json._embedded.episodes
+            .filter((episode) => episode.summary.includes("Gunther")).length;
     };
 
     function getTotalRuntimeMinutes(json) {
-        return json._embedded.episodes.reduce((runtime, episode) => {
-                    runtime += episode.runtime
-                    return runtime;
-                }, 0);
+        return json._embedded.episodes
+            .reduce((runtime, episode) => {
+                runtime += episode.runtime
+                return runtime;
+            }, 0);
     }
 
     function getTotalEpisodesInYear(json, year) {
-        return json._embedded.episodes.filter((episode) => episode.airdate.includes(year)).length;
+        return json._embedded.episodes
+            .filter((episode) => episode.airdate.includes(year)).length;
     }
 
     function getFemaleCastMembers(json) {
-        return json._embedded.cast.reduce((names, member) => {
-                                    if (member.person.gender == "Female") {
-                                        names.push(member.person.name)
-                                    }                                    
-                                    return names;
-                                },[]);
+        return json._embedded.cast
+            .reduce((names, member) => {
+                if (member.person.gender == "Female") {
+                    names.push(member.person.name)
+                }                                    
+                return names;
+            },[]);
     }
 
     function getEpisodeTitles(json, character) {
-        return json._embedded.episodes.reduce((titles, episode) => {
-            if (episode.summary.includes(character)) {
-                titles.push(episode.name);
-            }
-            return titles;
-        }, []);
+        return json._embedded.episodes
+            .reduce((titles, episode) => {
+                if (episode.summary.includes(character)) {
+                    titles.push(episode.name);
+                }
+                return titles;
+            }, []);
     }
 
     function getCastMembersOver55(json) {
-        return json._embedded.cast.reduce((names, member) => {
-            let fiftyFiveYAgo = new Date();
-            fiftyFiveYAgo.setFullYear(fiftyFiveYAgo.getFullYear() - 55);
+        return json._embedded.cast
+            .reduce((names, member) => {
+                let fiftyFiveYAgo = new Date();
+                fiftyFiveYAgo.setFullYear(fiftyFiveYAgo.getFullYear() - 55);
 
-            let bday = new Date(member.person.birthday);
-            
-            if (bday.getTime() < fiftyFiveYAgo.getTime()) {
-                names.push(member.person.name)
-            }                                    
-            return names;
-        },[]);
+                let bday = new Date(member.person.birthday);
+                
+                if (bday.getTime() < fiftyFiveYAgo.getTime()) {
+                    names.push(member.person.name)
+                }                                    
+                return names;
+            },[]);
     }
 
     function getTotalRuntimeMinutesExcludingSeasonSix(json) {
-        return json._embedded.episodes.reduce((runtime, episode) => {
-            if (episode.season !== 6) {
-                runtime += episode.runtime
-            }            
-            return runtime;
-        }, 0);
+        return json._embedded.episodes
+            .reduce((runtime, episode) => {
+                if (episode.season !== 6) {
+                    runtime += episode.runtime
+                }            
+                return runtime;
+            }, 0);
 
     }
 
     function getFirstFourSeasons(json) {
-        return json._embedded.episodes.filter((episode) => parseInt(episode.season) < 5)
-                                    .map((episode) => {
-                                        return {
-                                                    "Season": episode.season,
-                                                    "Episode": episode.number
-                                                }
-                                    });
+        return json._embedded.episodes
+            .filter((episode) => parseInt(episode.season) < 5)
+            .map((episode) => {
+                return {
+                            "Season": episode.season,
+                            "Name": episode.name
+                        }
+            });
     }
 
     function getEpisodeTallyBySeason(json) {
-        return json._embedded.episodes.reduce((tally, episode) => {
-            var key = "Season_" + episode.season;
+        return json._embedded.episodes
+            .reduce((tally, episode) => {
+                var key = "Season_" + episode.season;
 
-            if (!tally[key]) {
-                tally[key] = 1;
-            } else {
-                tally[key] += 1;
-            }          
-            
-            return tally;
-        }, {})
+                if (!tally[key]) {
+                    tally[key] = 1;
+                } else {
+                    tally[key] += 1;
+                }          
+                
+                return tally;
+            }, {})
     }
 
     function capitalizeTheFriends(json) {
         const friends = ["Joey", "Chandler", "Monica", "Rachel", "Phoebe", "Ross"];
 
-        return json._embedded.episodes.filter((episode) => episode.name.includes(friends[0]))
-                                    .map((episode) => {                                        
-                                        episode.name = episode.name.replace(friends[0], friends[0].toUpperCase());
-                                        return episode;
-                                    });
+        return json._embedded.episodes
+            .reduce((processed, episode) => {
+                const newObj = {};
+
+                newObj.name = episode.name.replace(/Joey|Chandler|Monica|Rachel|Phoebe|Ross/gi, 
+                    (word) => word.toUpperCase());
+                newObj.summary = episode.summary.replace(/Joey|Chandler|Monica|Rachel|Phoebe|Ross/gi, 
+                    (word) => word.toUpperCase());
+                
+                processed.push(newObj);
+                return processed;
+                //reference: https://www.w3schools.com/jsref/jsref_replace.asp
+            }, []);
     }
 
 })();
