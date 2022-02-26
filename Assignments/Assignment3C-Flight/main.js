@@ -1,6 +1,16 @@
 // IIFE
 (() => {
 
+    fetch("https://opensky-network.org/api/states/all")
+    .then((response) => response.json())
+    .then((json) => {
+        const frCan = json.states.filter((flight) => flight[2] === "Canada");
+        console.log("Data of aircrafts whose country of origin is Canada:");
+        console.log(frCan);
+
+        return frCan;
+    });
+
     //create map in leaflet and tie it to the div called 'theMap'
     let map = L.map('theMap').setView([42, -60], 4);
 
@@ -9,8 +19,9 @@
         }).addTo(map);
 
     L.marker([42, -60]).addTo(map)
-        .bindPopup('This is a sample popup. You can put any html structure in this including extra flight data. You can also swap this icon out for a custom icon. Some png files have been provided for you to use if you wish.')
-        .openPopup();
+        .bindPopup('This is a sample popup. You can put any html structure in this including extra flight data. You can also swap this icon out for a custom icon. Some png files have been provided for you to use if you wish.');
+
+    
 
 
 })()
