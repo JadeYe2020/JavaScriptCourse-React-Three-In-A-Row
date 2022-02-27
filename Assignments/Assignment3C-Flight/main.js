@@ -9,6 +9,7 @@
         console.log("Data of aircrafts whose country of origin is Canada:");
         console.log(frCan);
         
+        // map the raw data into GeoJSON
         const geojsonFeature = frCan.map((flight) => {
             return {
                         "type": "Feature",
@@ -24,8 +25,7 @@
                         }
                     }
         });
-
-        // Requirement 2:
+        // output for requirement 2
         console.log("GeoJSON data:");
         console.log(geojsonFeature);
 
