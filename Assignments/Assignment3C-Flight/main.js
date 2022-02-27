@@ -1,14 +1,37 @@
 // IIFE
 (() => {
 
+    var geoJson = {};
+
     fetch("https://opensky-network.org/api/states/all")
     .then((response) => response.json())
     .then((json) => {
         const frCan = json.states.filter((flight) => flight[2] === "Canada");
+        // Requirement 1:
         console.log("Data of aircrafts whose country of origin is Canada:");
         console.log(frCan);
+        
+        geoJson = frCan.map((flight) => {
+            return {
+                        "type": "Feature",
+                        "properties": {
+                            "Callsign": flight[1],
+                            "On Ground": flight[8],
+                            "Geo Altitude": flight[13],
+                            "True Track": flight[10]
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [flight[5], flight[6]]
+                        }
+                    }
+        });
 
-        return frCan;
+        // Requirement 2:
+        console.log("GeoJSON data:");
+        console.log(geoJson);
+
+        return geoJson;
     });
 
     //create map in leaflet and tie it to the div called 'theMap'
