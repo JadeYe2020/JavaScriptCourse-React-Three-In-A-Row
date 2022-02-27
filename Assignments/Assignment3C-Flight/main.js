@@ -47,9 +47,12 @@
         
         // GeoJSON objects are added to the map through a GeoJSON layer.
         L.geoJSON(geojsonFeature, {
-            // implement icons
+            // implement icons and rotation
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {icon: planeIcon});
+                return L.marker(latlng, {
+                    icon: planeIcon,
+                    rotationAngle: feature.properties["True Track"]
+                });
             },
 
             // implement popups
