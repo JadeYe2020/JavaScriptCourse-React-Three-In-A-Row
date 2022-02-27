@@ -31,9 +31,19 @@
         console.log("GeoJSON data:");
         console.log(geojsonFeature);
         
-        // GeoJSON objects are added to the map through a GeoJSON layer.
-        L.geoJSON(geojsonFeature).addTo(map);
+        const onEachFeature = (feature, layer) => {
+            // form the string to display in popups. reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+            let propertiesStr = Object.keys(feature.properties).map((prop) => {
+                return prop + ": " + feature.properties[prop];
+            }).join("<br />");
 
+            layer.bindPopup(propertiesStr);
+        }
+        
+        // GeoJSON objects are added to the map through a GeoJSON layer.
+        L.geoJSON(geojsonFeature, {
+            onEachFeature: onEachFeature
+        }).addTo(map);
 
         return geojsonFeature;
     });
