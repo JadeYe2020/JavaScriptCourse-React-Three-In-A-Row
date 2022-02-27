@@ -1,7 +1,7 @@
 // IIFE
 (() => {
 
-    var geoJson = {};
+    var geojsonFeature = {};
 
     fetch("https://opensky-network.org/api/states/all")
     .then((response) => response.json())
@@ -11,7 +11,7 @@
         console.log("Data of aircrafts whose country of origin is Canada:");
         console.log(frCan);
         
-        geoJson = frCan.map((flight) => {
+        geojsonFeature = frCan.map((flight) => {
             return {
                         "type": "Feature",
                         "properties": {
@@ -29,9 +29,13 @@
 
         // Requirement 2:
         console.log("GeoJSON data:");
-        console.log(geoJson);
+        console.log(geojsonFeature);
+        
+        // GeoJSON objects are added to the map through a GeoJSON layer.
+        L.geoJSON(geojsonFeature).addTo(map);
 
-        return geoJson;
+
+        return geojsonFeature;
     });
 
     //create map in leaflet and tie it to the div called 'theMap'
