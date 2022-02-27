@@ -1,7 +1,5 @@
 // IIFE
-(() => {
-
-    var geojsonFeature = {};
+(() => {    
 
     fetch("https://opensky-network.org/api/states/all")
     .then((response) => response.json())
@@ -11,7 +9,7 @@
         console.log("Data of aircrafts whose country of origin is Canada:");
         console.log(frCan);
         
-        geojsonFeature = frCan.map((flight) => {
+        const geojsonFeature = frCan.map((flight) => {
             return {
                         "type": "Feature",
                         "properties": {
@@ -30,18 +28,31 @@
         // Requirement 2:
         console.log("GeoJSON data:");
         console.log(geojsonFeature);
+
+        // set up icons (https://leafletjs.com/examples/custom-icons/)
+        var planeIcon = L.icon({
+            iconUrl: 'plane.png',        
+            iconSize:     [20, 20], // size of the icon
+            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+            popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+        });        
         
         const onEachFeature = (feature, layer) => {
             // form the string to display in popups. reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
             let propertiesStr = Object.keys(feature.properties).map((prop) => {
                 return prop + ": " + feature.properties[prop];
             }).join("<br />");
-
             layer.bindPopup(propertiesStr);
         }
         
         // GeoJSON objects are added to the map through a GeoJSON layer.
         L.geoJSON(geojsonFeature, {
+            // implement icons
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: planeIcon});
+            },
+
+            // implement popups
             onEachFeature: onEachFeature
         }).addTo(map);
 
@@ -55,8 +66,9 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-    L.marker([42, -60]).addTo(map)
-        .bindPopup('This is a sample popup. You can put any html structure in this including extra flight data. You can also swap this icon out for a custom icon. Some png files have been provided for you to use if you wish.');
+
+    // L.marker([42, -60]).addTo(map)
+    //     .bindPopup('This is a sample popup. You can put any html structure in this including extra flight data. You can also swap this icon out for a custom icon. Some png files have been provided for you to use if you wish.');
 
     
 
