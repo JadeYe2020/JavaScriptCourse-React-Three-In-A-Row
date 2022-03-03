@@ -9,7 +9,7 @@
             map.removeLayer(gjLayer);
             
             const frCan = json.states.filter((flight) => flight[2] === "Canada");
-            // Requirement 1:
+            // output for requirement 1:
             console.log("Data of aircrafts whose country of origin is Canada:");
             console.log(frCan);
             
@@ -46,6 +46,7 @@
                 let propertiesStr = Object.keys(feature.properties).map((prop) => {
                     return prop + ": " + feature.properties[prop];
                 }).join("<br />");
+
                 layer.bindPopup(propertiesStr);
             }
             
@@ -53,19 +54,15 @@
             gjLayer = L.geoJSON(geojsonFeature, {
                 // implement icons and rotation
                 pointToLayer: function (feature, latlng) {
-                    markers = L.marker(latlng, {
-                        icon: planeIcon,
-                        rotationAngle: feature.properties["True Track"]
-                    });
-
-                    return markers;
+                    return L.marker(latlng, {
+                            icon: planeIcon,
+                            rotationAngle: feature.properties["True Track"]
+                        });                   
                 },
 
                 // implement popups
                 onEachFeature: onEachFeature
             }).addTo(map);
-
-            // return geojsonFeature;
         });
     }
 
