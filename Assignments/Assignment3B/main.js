@@ -133,7 +133,6 @@
                 }            
                 return runtime;
             }, 0);
-
     }
 
     function getFirstFourSeasons(json) {
