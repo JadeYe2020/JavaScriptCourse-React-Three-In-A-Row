@@ -1,5 +1,6 @@
 (() => {
 
+    // fetch("https://threeinarowpuzzle.herokuapp.com/random")
     fetch("https://threeinarowpuzzle.herokuapp.com/sample")
     .then(response => response.json())
     .then(json => {
@@ -19,46 +20,90 @@
 
             for (let j = 0; j < gridSize; j++) {
                 let puzzleGrid = document.createElement("td");
-                let gridState = json.rows[i][j].currentState;
+                //let gridState = json.rows[i][j].currentState;
                 
                 if (json.rows[i][j].canToggle) {
                     puzzleGrid.id = "notFixed";
                     puzzleGrid.addEventListener("click", () => {
-                        if (gridState === 2) {
-                            gridState = 0;
+                        if (json.rows[i][j].currentState === 2) {
+                            json.rows[i][j].currentState = 0;
                         } else {
-                            gridState ++;
+                            json.rows[i][j].currentState ++;
                         }
 
-                        puzzleGrid.className = "state" + gridState;
+                        puzzleGrid.className = "state" + json.rows[i][j].currentState;
 
                     }, false);                    
                 } else {
                     puzzleGrid.id = "fixed";
                 }
 
-                puzzleGrid.className = "state" + gridState;
+                puzzleGrid.className = "state" + json.rows[i][j].currentState;
 
                 puzzleRow.appendChild(puzzleGrid);
                 //document.querySelector("#row" + i).appendChild(puzzleGrid);
             }
         }
 
+        // create a new paragraph to put in the check button
         let newParag = document.createElement("p");
         document.querySelector("#theGame").appendChild(newParag);
         
         let checkButton = document.createElement("button");
         checkButton.type = "button";
         checkButton.id = "checkBtn";
-        checkButton.textContent = "Check";
+        checkButton.textContent = "Check";        
 
+        // add a span tag to display possible status text
         let statusSpan = document.createElement("span");
         statusSpan.id = "showStatus";
         statusSpan.textContent = "test";
 
+        // set the onclick event
+        checkButton.addEventListener("click", () => {
+
+            let result = "";
+            let correctCount = 0;
+
+            for (let i = 0; i < gridSize; i++) {
+                
+                for (let j = 0; j < gridSize; j++) {
+                    let correctState = json.rows[i][j].correctState;
+                    let currentState = json.rows[i][j].currentState;
+                    
+                    if (currentState !== correctState && currentState !== 0) {
+                        result = "Something is wrong";
+                        break;
+                    } else if (currentState === correctState) {
+                        correctCount ++;
+                    }
+
+                    //grid = document.querySelector("#row" + i).childNodes[j];
+
+                    //console.log(grid.id);
+                }
+
+                if (result) {
+                    break;
+                }
+            }
+
+            if (!result) {
+                if (correctCount !== gridSize * gridSize) {
+                    result = "So far so good";
+                } else {
+                    result = "You did it!!";
+                }                
+            }            
+
+            document.querySelector("#showStatus").textContent = result;
+        }, false);
+
+
         newParag.appendChild(checkButton);
         newParag.appendChild(statusSpan);
 
+        // create a new paragraph to put in the checkbox
         let newParag2 = document.createElement("p");
         document.querySelector("#theGame").appendChild(newParag2);
         
