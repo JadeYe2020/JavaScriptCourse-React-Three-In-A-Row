@@ -1,7 +1,7 @@
 (() => {
 
-    // fetch("https://threeinarowpuzzle.herokuapp.com/random")
-    fetch("https://threeinarowpuzzle.herokuapp.com/sample")
+    fetch("https://threeinarowpuzzle.herokuapp.com/random")
+    // fetch("https://threeinarowpuzzle.herokuapp.com/sample")
     .then(response => response.json())
     .then(json => {
         let puzzleTable = document.createElement("table");
@@ -52,12 +52,12 @@
         let checkButton = document.createElement("button");
         checkButton.type = "button";
         checkButton.id = "checkBtn";
-        checkButton.textContent = "Check";        
+        checkButton.textContent = "Check Puzzle";        
 
         // add a span tag to display possible status text
         let statusSpan = document.createElement("span");
         statusSpan.id = "showStatus";
-        statusSpan.textContent = "test";
+        //statusSpan.textContent = "test";
 
         // set the onclick event
         checkButton.addEventListener("click", () => {
