@@ -3,9 +3,10 @@ table, tr, td {
     border-collapse: collapse;
 }
 
-table {
-    width: 300px;
-    height: 300px;    
+td {
+    width: 50px;
+    height: 50px;    
+    text-align: center;
 }
 
 .state0 {
@@ -14,6 +15,7 @@ table {
 
 .state1 {
     background-color: blue;
+    color: white;
 }
 
 .state2 {
