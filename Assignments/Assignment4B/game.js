@@ -63,7 +63,7 @@
         checkButton.addEventListener("click", () => {
 
             let result = "";
-            let correctCount = 0;
+            let emptyCount = 0;
 
             for (let i = 0; i < gridSize; i++) {
                 
@@ -74,8 +74,8 @@
                     if (currentState !== correctState && currentState !== 0) {
                         result = "Something is wrong";
                         break;
-                    } else if (currentState === correctState) {
-                        correctCount ++;
+                    } else if (currentState === 0) {
+                        emptyCount ++;
                     }
 
                     //grid = document.querySelector("#row" + i).childNodes[j];
@@ -89,7 +89,7 @@
             }
 
             if (!result) {
-                if (correctCount !== gridSize * gridSize) {
+                if (emptyCount !== 0) {
                     result = "So far so good";
                 } else {
                     result = "You did it!!";
