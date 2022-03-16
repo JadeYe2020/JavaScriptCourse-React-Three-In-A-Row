@@ -21,16 +21,48 @@
                 let puzzleGrid = document.createElement("td");
                 
                 if (json.rows[i][j].canToggle) {
-                    puzzleGrid.id = "fixed";                    
+                    puzzleGrid.id = "notFixed";                    
                 } else {
-                    puzzleGrid.id = "notFixed";
+                    puzzleGrid.id = "fixed";
                 }
 
                 puzzleGrid.className = "state" + json.rows[i][j].currentState;
 
-                document.querySelector("#row" + i).appendChild(puzzleGrid);
+                puzzleRow.appendChild(puzzleGrid);
+                //document.querySelector("#row" + i).appendChild(puzzleGrid);
             }
         }
+
+        let newParag = document.createElement("p");
+        document.querySelector("#theGame").appendChild(newParag);
+        
+        let checkButton = document.createElement("button");
+        checkButton.type = "button";
+        checkButton.id = "checkBtn";
+        checkButton.textContent = "Check";
+
+        let statusSpan = document.createElement("span");
+        statusSpan.id = "showStatus";
+        statusSpan.textContent = "test";
+
+        newParag.appendChild(checkButton);
+        newParag.appendChild(statusSpan);
+
+        let newParag2 = document.createElement("p");
+        document.querySelector("#theGame").appendChild(newParag2);
+        
+        let checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+        checkBox.id = "showIncorrect";
+
+        let cbLabel = document.createElement("label");
+        cbLabel.setAttribute("for", checkBox.id);
+        cbLabel.textContent = "Show incorrect squares";
+        newParag2.appendChild(checkBox);
+        newParag2.appendChild(cbLabel);
+        
+
+
 
 
         //console.log(rowCount);
