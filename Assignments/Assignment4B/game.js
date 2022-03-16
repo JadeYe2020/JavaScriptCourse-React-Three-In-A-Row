@@ -19,14 +19,25 @@
 
             for (let j = 0; j < gridSize; j++) {
                 let puzzleGrid = document.createElement("td");
+                let gridState = json.rows[i][j].currentState;
                 
                 if (json.rows[i][j].canToggle) {
-                    puzzleGrid.id = "notFixed";                    
+                    puzzleGrid.id = "notFixed";
+                    puzzleGrid.addEventListener("click", () => {
+                        if (gridState === 2) {
+                            gridState = 0;
+                        } else {
+                            gridState ++;
+                        }
+
+                        puzzleGrid.className = "state" + gridState;
+
+                    }, false);                    
                 } else {
                     puzzleGrid.id = "fixed";
                 }
 
-                puzzleGrid.className = "state" + json.rows[i][j].currentState;
+                puzzleGrid.className = "state" + gridState;
 
                 puzzleRow.appendChild(puzzleGrid);
                 //document.querySelector("#row" + i).appendChild(puzzleGrid);
