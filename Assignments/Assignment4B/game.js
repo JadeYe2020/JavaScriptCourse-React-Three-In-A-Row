@@ -25,6 +25,7 @@
                 if (json.rows[i][j].canToggle) {
                     puzzleGrid.id = "notFixed";
                     puzzleGrid.addEventListener("click", () => {
+                        
                         if (json.rows[i][j].currentState === 2) {
                             json.rows[i][j].currentState = 0;
                         } else {
@@ -32,6 +33,23 @@
                         }
 
                         puzzleGrid.className = "state" + json.rows[i][j].currentState;
+
+                        // if the checkbox is checked then it needs to check whether the grid is incorrect
+                        if (checkBox.checked) {                         
+
+                            let correctState = json.rows[i][j].correctState;
+                            let currentState = json.rows[i][j].currentState;
+
+                            if (currentState !== correctState && currentState !== 0) {
+                                // add in a new class
+                                document.querySelector("#row" + i).childNodes[j].classList.add("incorrect");
+                                document.querySelector("#row" + i).childNodes[j].innerText = "!";
+                            } else {
+                                // reset the class and the text
+                                document.querySelector("#row" + i).childNodes[j].classList.remove("incorrect");
+                                document.querySelector("#row" + i).childNodes[j].innerText = "";
+                            }
+                        }
 
                     }, false);                    
                 } else {
