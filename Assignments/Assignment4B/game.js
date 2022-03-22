@@ -184,7 +184,8 @@
             else {
                 // reset all grids' innerText to empty string
                 document.querySelectorAll("td").forEach(grid => {
-                    grid.innerText = "";
+                    if (!grid.id.includes("clue"))
+                        grid.innerText = "";
                 });
             }
         });
