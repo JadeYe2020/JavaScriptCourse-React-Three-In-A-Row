@@ -59,41 +59,42 @@
         statusSpan.id = "showStatus";
         //statusSpan.textContent = "test";
 
-        // set the onclick event
-        checkButton.addEventListener("click", () => {
+        // a function to label the wrong grid with a class named "incorrect"
+        function checkGrids(size) {
 
-            let result = "";
-            let emptyCount = 0;
-
-            for (let i = 0; i < gridSize; i++) {
+            for (let i = 0; i < size; i++) {
                 
-                for (let j = 0; j < gridSize; j++) {
+                for (let j = 0; j < size; j++) {
                     let correctState = json.rows[i][j].correctState;
                     let currentState = json.rows[i][j].currentState;
                     
                     if (currentState !== correctState && currentState !== 0) {
-                        result = "Something is wrong";
-                        break;
-                    } else if (currentState === 0) {
-                        emptyCount ++;
-                    }
-
-                }
-
-                if (result) {
-                    break;
+                        // add in a new class
+                        document.querySelector("#row" + i).childNodes[j].classList.add("incorrect");
+                    } else {
+                        // make sure the other grids don't have the class
+                        document.querySelector("#row" + i).childNodes[j].classList.remove("incorrect");
+                    } 
                 }
             }
+        }
 
-            if (!result) {
-                if (emptyCount !== 0) {
-                    result = "So far so good";
-                } else {
-                    result = "You did it!!";
-                }                
-            }            
+        // set the onclick event
+        checkButton.addEventListener("click", () => {
+            checkGrids(gridSize);
 
-            document.querySelector("#showStatus").textContent = result;
+            let result = "";
+
+            if (document.querySelectorAll(".incorrect").length !== 0) {
+                result = "Something is wrong";
+            } else if (document.querySelectorAll(".state0").length !== 0) {
+                result = "So far so good";
+            } else {
+                result = "You did it!!";
+            }
+
+            document.querySelector("#showStatus").innerText = result;
+
         }, false);
 
 
