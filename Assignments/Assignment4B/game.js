@@ -41,12 +41,10 @@
                             let currentState = json.rows[i][j].currentState;
 
                             if (currentState !== correctState && currentState !== 0) {
-                                // add in a new class
-                                document.querySelector("#row" + i).childNodes[j].classList.add("incorrect");
+                                // mark the grid with some text
                                 document.querySelector("#row" + i).childNodes[j].innerText = "!";
                             } else {
-                                // reset the class and the text
-                                document.querySelector("#row" + i).childNodes[j].classList.remove("incorrect");
+                                // reset the grid with empty string
                                 document.querySelector("#row" + i).childNodes[j].innerText = "";
                             }
                         }
