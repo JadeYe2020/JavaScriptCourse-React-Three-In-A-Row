@@ -11,7 +11,21 @@
         let tableBody = document.createElement("tbody");
         puzzleTable.appendChild(tableBody);
 
-        let gridSize = json.rows.length;        
+        let gridSize = json.rows.length;
+        
+        // create the first table row as the row to display clues
+        let clueRow = document.createElement("tr");
+        clueRow.id = "clue";
+        tableBody.appendChild(clueRow);
+
+        for (let i = 0; i < gridSize; i++) {
+            let columnClue = document.createElement("td");
+            columnClue.id = "clueCol" + i;
+            clueRow.appendChild(columnClue);
+        }
+        let emptyCell = document.createElement("td");
+        clueRow.appendChild(emptyCell);
+        
 
         for (let i = 0; i < gridSize; i++) {
             let puzzleRow = document.createElement("tr");
@@ -59,6 +73,11 @@
                 puzzleRow.appendChild(puzzleGrid);
                 //document.querySelector("#row" + i).appendChild(puzzleGrid);
             }
+
+            // add one last grid in the end to display clues
+            let rowClue = document.createElement("td");
+            rowClue.id = "clueRow" + i;
+            puzzleRow.appendChild(rowClue);
         }
 
         // create a new paragraph to put in the check button
