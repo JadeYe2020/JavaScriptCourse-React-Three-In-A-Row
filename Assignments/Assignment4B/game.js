@@ -1,7 +1,7 @@
 (() => {
 
-    fetch("https://threeinarowpuzzle.herokuapp.com/random")
-    // fetch("https://threeinarowpuzzle.herokuapp.com/sample")
+    // fetch("https://threeinarowpuzzle.herokuapp.com/random")
+    fetch("https://threeinarowpuzzle.herokuapp.com/sample")
     .then(response => response.json())
     .then(json => {
         let puzzleTable = document.createElement("table");
@@ -78,9 +78,6 @@
                         emptyCount ++;
                     }
 
-                    //grid = document.querySelector("#row" + i).childNodes[j];
-
-                    //console.log(grid.id);
                 }
 
                 if (result) {
@@ -111,17 +108,33 @@
         checkBox.type = "checkbox";
         checkBox.id = "showIncorrect";
 
+        // set the checkbox change event, reference: https://stackoverflow.com/questions/14544104/checkbox-check-event-listener
+        checkBox.addEventListener("change", function() {
+            if (this.checked) {
+                for (let i = 0; i < gridSize; i++) {
+                    for (let j = 0; j < gridSize; j++) {
+                        let correctState = json.rows[i][j].correctState;
+                        let currentState = json.rows[i][j].currentState;
+                    
+                        if (currentState !== correctState && currentState !== 0) {
+                            document.querySelector("#row" + i).childNodes[j].innerText = "!";
+                        }
+                    }                 
+                }
+            }
+            else {
+                var grids = document.querySelectorAll("td");
+                grids.forEach(grid => {
+                    grid.innerText = "";                    
+                });
+            }
+        });
+
         let cbLabel = document.createElement("label");
         cbLabel.setAttribute("for", checkBox.id);
         cbLabel.textContent = "Show incorrect squares";
         newParag2.appendChild(checkBox);
         newParag2.appendChild(cbLabel);
-        
-
-
-
-
-        //console.log(rowCount);
     });
 
 })();
