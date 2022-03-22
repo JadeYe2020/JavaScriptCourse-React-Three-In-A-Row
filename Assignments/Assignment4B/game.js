@@ -21,9 +21,11 @@
         for (let i = 0; i < gridSize; i++) {
             let columnClue = document.createElement("td");
             columnClue.id = "clueCol" + i;
+            columnClue.className = "clue";
             clueRow.appendChild(columnClue);
         }
         let emptyCell = document.createElement("td");
+        emptyCell.className = "clue";
         clueRow.appendChild(emptyCell);
         
 
@@ -79,6 +81,7 @@
             // add one last grid in the end to display clues
             let rowClue = document.createElement("td");
             rowClue.id = "clueRow" + i;
+            rowClue.className = "clue";
             puzzleRow.appendChild(rowClue);
         }
 
