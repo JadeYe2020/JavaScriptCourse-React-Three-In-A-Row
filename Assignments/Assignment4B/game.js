@@ -48,6 +48,8 @@
 
                         puzzleGrid.className = "state" + json.rows[i][j].currentState;
 
+                        displayClues(gridSize);
+
                         // if the checkbox is checked then it needs to check whether the grid is incorrect
                         if (checkBox.checked) {                         
 
@@ -93,6 +95,15 @@
         let statusSpan = document.createElement("span");
         statusSpan.id = "showStatus";
         //statusSpan.textContent = "test";
+
+        function displayClues(size) {
+            for (let i = 0; i < size; i++) {
+                let rowState1Count = document.querySelector("#row" + i).querySelectorAll(".state1").length;
+                let rowState2Count = document.querySelector("#row" + i).querySelectorAll(".state2").length;
+
+                document.querySelector("#clueRow" + i).innerText = rowState1Count + "/" + rowState2Count
+            }
+        }
 
         // a function to label the wrong grid with a class named "incorrect"
         function checkGrids(size) {
@@ -168,6 +179,8 @@
         cbLabel.textContent = "Show incorrect squares";
         newParag2.appendChild(checkBox);
         newParag2.appendChild(cbLabel);
+
+        displayClues(gridSize);
     });
 
 })();
