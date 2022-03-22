@@ -1,6 +1,15 @@
-table, tr, td {
+td {
     border: 1px solid;
     border-collapse: collapse;
+}
+
+table {
+    border: none;
+    border-collapse: collapse;
+}
+
+.clue {
+    border: none;
 }
 
 td {
