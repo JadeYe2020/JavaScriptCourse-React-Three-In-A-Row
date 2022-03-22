@@ -1,7 +1,7 @@
 (() => {
 
-    // fetch("https://threeinarowpuzzle.herokuapp.com/random")
-    fetch("https://threeinarowpuzzle.herokuapp.com/sample")
+    fetch("https://threeinarowpuzzle.herokuapp.com/random")
+    // fetch("https://threeinarowpuzzle.herokuapp.com/sample")
     .then(response => response.json())
     .then(json => {
         let puzzleTable = document.createElement("table");
@@ -130,21 +130,18 @@
         // set the checkbox change event, reference: https://stackoverflow.com/questions/14544104/checkbox-check-event-listener
         checkBox.addEventListener("change", function() {
             if (this.checked) {
-                for (let i = 0; i < gridSize; i++) {
-                    for (let j = 0; j < gridSize; j++) {
-                        let correctState = json.rows[i][j].correctState;
-                        let currentState = json.rows[i][j].currentState;
-                    
-                        if (currentState !== correctState && currentState !== 0) {
-                            document.querySelector("#row" + i).childNodes[j].innerText = "!";
-                        }
-                    }                 
-                }
+                // check the table and lable incorrect grids
+                checkGrids(gridSize);
+
+                // add innerText to all incorrect grids
+                document.querySelectorAll(".incorrect").forEach(grid => {
+                    grid.innerText = "!";                    
+                });
             }
             else {
-                var grids = document.querySelectorAll("td");
-                grids.forEach(grid => {
-                    grid.innerText = "";                    
+                // reset all grids' innerText to empty string
+                document.querySelectorAll("td").forEach(grid => {
+                    grid.innerText = "";
                 });
             }
         });
