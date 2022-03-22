@@ -101,7 +101,22 @@
                 let rowState1Count = document.querySelector("#row" + i).querySelectorAll(".state1").length;
                 let rowState2Count = document.querySelector("#row" + i).querySelectorAll(".state2").length;
 
-                document.querySelector("#clueRow" + i).innerText = rowState1Count + "/" + rowState2Count
+                document.querySelector("#clueRow" + i).innerText = rowState1Count + "/" + rowState2Count;
+
+                let colState1Count = 0;
+                let colState2Count = 0;
+
+                for (let j = 0; j < size; j++) {
+                    let gridNode = document.querySelector("#row" + j).childNodes[i];
+
+                    if (gridNode.classList.contains("state1")) {
+                        colState1Count ++;
+                    } else if (gridNode.classList.contains("state2")) {
+                        colState2Count ++;
+                    }                    
+                }
+
+                document.querySelector("#clueCol" + i).innerText = colState1Count + "/" + colState2Count;
             }
         }
 
