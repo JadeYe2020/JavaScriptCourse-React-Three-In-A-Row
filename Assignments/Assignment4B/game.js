@@ -46,8 +46,6 @@
                 let puzzleGrid = document.createElement("td");
                 
                 if (json.rows[i][j].canToggle) {
-                    // // set the id of the td nodes based on the value of canToggle
-                    // puzzleGrid.id = "notFixed";
 
                     // add a click event listener to all the canToggle grids
                     puzzleGrid.addEventListener("click", () => {
