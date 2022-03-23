@@ -1,7 +1,7 @@
 (() => {
 
-    fetch("https://threeinarowpuzzle.herokuapp.com/random")
-    // fetch("https://threeinarowpuzzle.herokuapp.com/sample")
+    // fetch("https://threeinarowpuzzle.herokuapp.com/random")
+    fetch("https://threeinarowpuzzle.herokuapp.com/sample")
     .then(response => response.json())
     .then(json => {
         // create a table node
@@ -51,7 +51,7 @@
 
                     // add a click event listener to all the canToggle grids
                     puzzleGrid.addEventListener("click", () => {
-                        // the click action will alternate the current state
+                        // the click action will cycle the current state
                         if (json.rows[i][j].currentState === 2) {
                             // change the value from state 2 to state 0
                             json.rows[i][j].currentState = 0;
@@ -155,10 +155,10 @@
 
         }, false);
 
-
         // append the button and the span section subsequently
         newParag.appendChild(checkButton);
         newParag.appendChild(statusSpan);
+
 
         // create a new paragraph to put in the checkbox
         let newParag2 = document.createElement("p");
@@ -188,6 +188,7 @@
                 });
             }
         });
+
         // create a label node for the checkbox
         let cbLabel = document.createElement("label");
         cbLabel.setAttribute("for", checkBox.id);
@@ -199,24 +200,30 @@
         // the function to update all clues
         function displayClues(size) {
             for (let i = 0; i < size; i++) {
+                // get the number of state1 grids from the row
                 let rowState1Count = document.querySelector("#row" + i).querySelectorAll(".state1").length;
+                // the number of state2
                 let rowState2Count = document.querySelector("#row" + i).querySelectorAll(".state2").length;
 
+                // display the text in the clue cell at the end of each row
                 document.querySelector("#clueRow" + i).innerText = rowState1Count + "/" + rowState2Count;
 
                 let colState1Count = 0;
                 let colState2Count = 0;
 
                 for (let j = 0; j < size; j++) {
+                    // check each column one row at a time
                     let gridNode = document.querySelector("#row" + j).childNodes[i];
 
-                    if (gridNode.classList.contains("state1")) {
+                    // update the tally
+                    if (gridNode.classList.contains("state1")) {                        
                         colState1Count ++;
                     } else if (gridNode.classList.contains("state2")) {
                         colState2Count ++;
                     }                    
                 }
 
+                // display the text in the clue cell at the top
                 document.querySelector("#clueCol" + i).innerText = colState1Count + "/" + colState2Count;
             }
         }
