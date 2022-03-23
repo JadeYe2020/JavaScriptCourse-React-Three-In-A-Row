@@ -188,14 +188,13 @@
                 });
             }
         });
-
+        // create a label node for the checkbox
         let cbLabel = document.createElement("label");
         cbLabel.setAttribute("for", checkBox.id);
         cbLabel.textContent = "Show incorrect squares";
+        // append the nodes in correct order
         newParag2.appendChild(checkBox);
         newParag2.appendChild(cbLabel);
-
-        displayClues(gridSize);
 
         // the function to update all clues
         function displayClues(size) {
@@ -221,6 +220,9 @@
                 document.querySelector("#clueCol" + i).innerText = colState1Count + "/" + colState2Count;
             }
         }
+
+        // show the clues when the page loads
+        displayClues(gridSize);
     });
 
 })();
