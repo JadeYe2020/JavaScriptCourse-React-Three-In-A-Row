@@ -46,8 +46,8 @@
                 let puzzleGrid = document.createElement("td");
                 
                 if (json.rows[i][j].canToggle) {
-                    // set the id of the td nodes based on the value of canToggle
-                    puzzleGrid.id = "notFixed";
+                    // // set the id of the td nodes based on the value of canToggle
+                    // puzzleGrid.id = "notFixed";
 
                     // add a click event listener to all the canToggle grids
                     puzzleGrid.addEventListener("click", () => {
@@ -82,9 +82,10 @@
                         }
 
                     }, false);                    
-                } else {
-                    puzzleGrid.id = "fixed";
                 }
+
+                // id the cells with the column index
+                puzzleGrid.id = "col" + j;
 
                 // name the class based on the current state value for all td nodes
                 puzzleGrid.className = "state" + json.rows[i][j].currentState;
@@ -208,20 +209,13 @@
                 // display the text in the clue cell at the end of each row
                 document.querySelector("#clueRow" + i).innerText = rowState1Count + "/" + rowState2Count;
 
-                let colState1Count = 0;
-                let colState2Count = 0;
 
-                for (let j = 0; j < size; j++) {
-                    // check each column one row at a time
-                    let gridNode = document.querySelector("#row" + j).childNodes[i];
+                // convert column i nodeslist into an array. Reference: https://stackoverflow.com/questions/43928315/filter-is-not-a-function
+                const nodesInCol =  Array.from(document.querySelectorAll("#col" + i));
 
-                    // update the tally
-                    if (gridNode.classList.contains("state1")) {                        
-                        colState1Count ++;
-                    } else if (gridNode.classList.contains("state2")) {
-                        colState2Count ++;
-                    }                    
-                }
+                // use filter funtion to get the count
+                let colState1Count = nodesInCol.filter(node => node.classList.contains("state1")).length;
+                let colState2Count = nodesInCol.filter(node => node.classList.contains("state2")).length;                
 
                 // display the text in the clue cell at the top
                 document.querySelector("#clueCol" + i).innerText = colState1Count + "/" + colState2Count;
