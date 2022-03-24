@@ -1,16 +1,7 @@
-// variables
-$primary-color: rgb(255, 128, 0);
-$secondary-color: #00FF00;
-$primary-text-color: grey;
-$secondary-text-color: red;
+@import "colours";
 
 // mixins
-@mixin theme($theme: DarkGray) {
-    background: $theme;
-    box-shadow: 0 0 10px rgba($theme, .25);
-    color: #fff;
-    
-}
+@import "mixins";
 
 
 body {
@@ -19,7 +10,7 @@ body {
 
 h1 {
     // @include theme($theme: DarkRed);
-    @include theme();
+    @include theme;
 }
 
 // all my div#news styles in one place
