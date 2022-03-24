@@ -1,7 +1,7 @@
 (() => {
 
-    // fetch("https://threeinarowpuzzle.herokuapp.com/random")
-    fetch("https://threeinarowpuzzle.herokuapp.com/sample")
+    fetch("https://threeinarowpuzzle.herokuapp.com/random")
+    // fetch("https://threeinarowpuzzle.herokuapp.com/sample")
     .then(response => response.json())
     .then(json => {
         // create a table node
