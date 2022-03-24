@@ -1,4 +1,22 @@
 body {
   background-color: #ff8000;
 }
+
+h1 {
+  background-color: #00FF00;
+  color: grey;
+}
+
+div#news {
+  text-align: center;
+}
+
+div#news p {
+  background-color: #00FF00;
+  color: red;
+}
+
+div#news p span {
+  text-decoration: underline;
+}
 /*# sourceMappingURL=main.css.map */

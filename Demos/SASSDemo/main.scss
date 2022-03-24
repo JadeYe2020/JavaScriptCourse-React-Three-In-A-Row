@@ -1,6 +1,29 @@
 // variables
 $primary-color: rgb(255, 128, 0);
+$secondary-color: #00FF00;
+$primary-text-color: grey;
+$secondary-text-color: red;
 
 body {
     background-color: $primary-color;
+}
+
+h1 {
+    background-color: $secondary-color;
+    color: $primary-text-color;
+}
+
+// all my div#news styles in one place
+
+div#news {
+    text-align: center;
+
+    p {
+        background-color: $secondary-color;
+        color: $secondary-text-color;
+
+        span {
+            text-decoration: underline;
+        }
+    }
 }
