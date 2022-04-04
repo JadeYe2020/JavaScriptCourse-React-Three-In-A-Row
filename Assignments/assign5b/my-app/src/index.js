@@ -28,53 +28,19 @@ function Square(props) { // a functional react component
 }
 
 class Board extends React.Component {
-  constructor(props) {
-    super(props); // passing any props we get up to parent constructor
-    this.state = { // initializing our state
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    };
-  }
-
-  // handleClick will live here - because it needs to update state
-  handleClick(i) {
-    // const history = this.state.history;
-    // const current = history[history.length - 1];
-    // treat state objects as immutable
-    const squares = this.state.squares.slice(); // use slice() to create a copy of the array
-
-    if (calculateWinner(squares) || squares[i]) { // if winner or something already in the squre, do nothing
-      return;
-    }
-
-    squares[i] = this.state.xIsNext ? 'X' : 'O'; // when we click set to X or O based on whose turn it is
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
-  }
 
   renderSquare(i) {
     return (
       <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
       />
     );
   }
 
   render() {
-    const winner = calculateWinner(this.state.squares);
-    let status;
-    if (winner) { // 'X' and 'O' will be truthy, null will be falsey
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-
     return (
       <div>
-        <div className="status">{status}</div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -96,16 +62,57 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {  
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true,
+    };
+  }
 
-  render() {    
+  // handleClick will live here - because it needs to update state
+  handleClick(i) {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    // treat state objects as immutable
+    const squares = current.squares.slice(); // use slice() to create a copy of the array
+
+    if (calculateWinner(squares) || squares[i]) { // if winner or something already in the squre, do nothing
+      return;
+    }
+
+    squares[i] = this.state.xIsNext ? 'X' : 'O'; // when we click set to X or O based on whose turn it is
+    this.setState({
+      history: history.concat([{ // unlike push(), the contact() doesn't mutate the original array
+        squares: squares,
+      }]),
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
+  render() {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    const winner = calculateWinner(current.squares);
+    let status;
+    if (winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = "Next player: " + (this.state.xIsNext ? 'X' : 'O');
+    }
 
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board 
+            squares={current.squares}
+            onClick={(i) => this.handleClick(i)}
+          />
         </div>
         <div className="game-info">
-          <div>{/* status */}</div>
+          <div>{status}</div>
           <ol>{/* TODO */}</ol>
         </div>
       </div>
