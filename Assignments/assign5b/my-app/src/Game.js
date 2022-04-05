@@ -57,6 +57,7 @@ export class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
+    // get the numbers of Xs and Os respectively
     const xCount = current.squares.filter( value => value === 'X').length;
     const oCount = current.squares.filter( value => value === 'O').length;
 
@@ -75,6 +76,8 @@ export class Game extends React.Component {
     let status;
     if (winner) {
       status = "Winner: " + winner;
+    } else if (xCount === 5) { // add in condition for draw situation
+      status = "Game Result: Draw";
     } else {
       status = "Next player: " + (this.state.xIsNext ? 'X' : 'O');
     }
