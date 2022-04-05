@@ -31,7 +31,7 @@ export class Game extends React.Component {
     // treat state objects as immutable
     const squares = current.squares.slice(); // use slice() to create a copy of the array
 
-    if (calculateWinner(squares) || squares[i]) { // if winner or something already in the squre, do nothing
+    if (calculateWinner(squares) || squares[i]) { // if winner or something already in the square, do nothing
       return;
     }
 
@@ -55,7 +55,14 @@ export class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    // to check whether there is a winner, what's the value and what's the combo
+    const winnerCombo = calculateWinner(current.squares);
+    let winner = null;
+    if (winnerCombo) {
+      winner = current.squares[winnerCombo[0]];
+    }
+    
+    //const winner = calculateWinner(current.squares);
 
     // get the numbers of Xs and Os respectively
     const xCount = current.squares.filter( value => value === 'X').length;
@@ -120,7 +127,9 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      // return the array instead
+      return lines[i];
+      //return squares[a];
     }
   }
   return null;
