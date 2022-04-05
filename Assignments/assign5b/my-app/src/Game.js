@@ -1,6 +1,17 @@
 import React from 'react';
 import {Board} from './Board';
 
+// a stateless functional component to display the number of moves for each player at any given moment in the game.
+function MoveCounter(props) {
+
+  return (
+    <div className="move-counter">
+      <div>X Move Count: {props.xCount}</div>
+      <div>O Move Count: {props.oCount}</div>
+    </div>
+  );
+}
+
 export class Game extends React.Component {  
   constructor(props) {
     super(props);
@@ -46,6 +57,9 @@ export class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
+    const xCount = current.squares.filter( value => value === 'X').length;
+    const oCount = current.squares.filter( value => value === 'O').length;
+
     const moves = history.map((step, move) => {
       const desc = move ?
         "Go to move #" + move :
@@ -73,10 +87,10 @@ export class Game extends React.Component {
             onClick={(i) => this.handleClick(i)}
           />
           <br />
-          <div className="move-counter">
-            <div>X Move Count: </div>
-            <div>O Move Count: </div>
-          </div>
+          <MoveCounter 
+            xCount={xCount}
+            oCount={oCount}
+          />
         </div>        
         <div className="game-info">
           <div>{status}</div>
