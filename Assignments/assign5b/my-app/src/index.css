@@ -35,6 +35,11 @@ body {
   .square:focus {
     outline: none;
   }
+
+  /* new style for the winning row */
+  .winner {
+    background: yellow;
+  }
   
   .kbd-navigation .square:focus {
     background: #ddd;
