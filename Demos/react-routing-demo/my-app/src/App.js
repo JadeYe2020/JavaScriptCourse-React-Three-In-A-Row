@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <h1>React API and Routing Demo Page</h1>
       <nav>
-        <Link to="">Home</Link> |{" "}
+        <Link to="/">Home</Link> |{" "}
         <Link to="/people">Customers</Link> |{" "}
         <Link to="/posts">Posts</Link>
       </nav>
