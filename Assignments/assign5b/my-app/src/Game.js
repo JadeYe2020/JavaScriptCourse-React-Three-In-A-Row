@@ -72,7 +72,12 @@ export class Game extends React.Component {
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
-        </div>
+          <br />
+          <div className="move-counter">
+            <div>X Move Count: </div>
+            <div>O Move Count: </div>
+          </div>
+        </div>        
         <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
