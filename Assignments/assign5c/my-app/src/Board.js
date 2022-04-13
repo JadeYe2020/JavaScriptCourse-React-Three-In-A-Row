@@ -3,37 +3,36 @@ import { Square } from './Square';
 
 export class Board extends React.Component {
 
-    renderSquare(i) {
-        return (
-            <Square
-              canToggle={}
-              col={}
-              currentState={}
-              onClick={() => this.props.onClick(i)}
-              row={}
-            />
-          );
-    }
-    
-    render() {
-        return (
-        <div>
-            <div className="board-row">
-                {this.renderSquare(0)}
-                {this.renderSquare(1)}
-                {this.renderSquare(2)}
-            </div>
-            <div className="board-row">
-                {this.renderSquare(3)}
-                {this.renderSquare(4)}
-                {this.renderSquare(5)}
-            </div>
-            <div className="board-row">
-                {this.renderSquare(6)}
-                {this.renderSquare(7)}
-                {this.renderSquare(8)}
-            </div>
-        </div>
+  renderSquare(i) {
+      return (
+          <Square
+            // canToggle={}
+            // col={}
+            // currentState={}
+            // onClick={() => this.props.onClick(i)}
+            // row={}
+          />
         );
-    }
+  }
+  
+  render() {
+    return (
+      <div>
+        {console.log(this.props.squares)}
+        {          
+          this.props.squares
+          .map( (row, i) => 
+            (<div className="board-row" key={"row" + i}>
+              {
+                // console.log(row)
+                row.map((col, j) => 
+                  <Square key={"col" + j} />                  
+                )
+              }                        
+            </div>)
+          )
+        }
+      </div>
+    );
+  }
 }
