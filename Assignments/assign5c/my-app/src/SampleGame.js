@@ -8,6 +8,9 @@ export class SampleGame extends React.Component {
         super(props);
         this.state = {
             rows: [],
+            // checkProgress: false,
+            showWrong: false,
+            progress: "",
         };
     }       
 
@@ -37,17 +40,31 @@ export class SampleGame extends React.Component {
     correctSquare() {
       const rows = this.state.rows;
 
-      // return a 2d array of boolean value
+      // return a 2d array of boolean values or null values
       return rows.map((row) => 
           [
-            row.map((square) => 
-              [square.correctState === square.currentState]
-            )
+            row.map((square) =>  {
+              if (square.currentState === 0) {
+                return null;
+              } else if (square.correctState !== square.currentState) {
+                return false;
+              } else { return true; } 
+            })
           ]        
         );
     }
 
-    render() {      
+    onChecked() {
+      let showWrong = this.state.showWrong;
+
+      this.setState({
+        showWrong: !showWrong
+      })
+    }
+
+
+
+    render() {
 
       return (
         <div>
@@ -58,7 +75,9 @@ export class SampleGame extends React.Component {
               <Board 
                 rows={this.state.rows}
                 onClick={(i, j) => this.handleClick(i, j)}
-                correctSqr={ this.correctSquare() }
+                wrongSqr={ this.correctSquare() }
+                showWrong={this.state.showWrong}
+                // checkProgress= {this.state.checkProgress}
               />
             </div>
           </div>
@@ -67,10 +86,41 @@ export class SampleGame extends React.Component {
             <input id="showWrong" type="checkbox"></input>
           </div>
           <div id="button">
-            <button id="checkBtn">Check</button>
+            <button id="checkBtn"
+              onClick={() => {
+                this.setState({
+                  progress: checkProgress(this.state.rows),
+                });                
+              } }>Check</button>
+            <div>{this.state.progress}</div>
           </div>
         </div>
       );
     }
+}
 
+// helper function to check how many incorrect squares
+function checkProgress(rows) {
+  // let wrongSqr = 0;
+  let emptySqr = 0;
+
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < rows.length; j++) {
+      if (rows[i][j] === false) {
+        return "Something is wrong.";
+      } 
+      
+      if (rows[i][j] === null) {
+        emptySqr ++;
+      }
+    }
+  }
+
+  if (emptySqr) {
+    // when there's neither incorrect grid nor grey ones
+    return "You did it!!";
+  } else { 
+    // when there's no incorrect grid but there's still grids at empty state
+    return "So far so good"; 
+  }
 }
