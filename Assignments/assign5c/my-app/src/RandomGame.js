@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import { Board } from './Board';
 
-export class SampleGame extends React.Component {
+export class RandomGame extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,8 +14,7 @@ export class SampleGame extends React.Component {
     }       
 
     componentDidMount() {
-        axios.get('https://threeinarowpuzzle.herokuapp.com/sample')
-        // axios.get('https://threeinarowpuzzle.herokuapp.com/random')
+        axios.get('https://threeinarowpuzzle.herokuapp.com/random')
             .then(res => {
                 const rows = res.data.rows;
                 this.setState({ rows });

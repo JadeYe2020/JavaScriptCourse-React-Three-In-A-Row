@@ -1,6 +1,5 @@
 import { Outlet, Link } from 'react-router-dom';
 import './App.css';
-import { SampleGame } from './SampleGame';
 
 function App() {
   return (
@@ -9,6 +8,7 @@ function App() {
       <nav>
         <Link to="/">Home</Link> |{" "}
         <Link to="/sample">Sample Game</Link> |{" "}
+        <Link to="/random">Random Game</Link>
       </nav>
       <Outlet />        
     </div>
