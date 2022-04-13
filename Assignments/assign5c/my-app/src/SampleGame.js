@@ -37,7 +37,7 @@ export class SampleGame extends React.Component {
         return (
           <div>
             <h2>Sample Game</h2>
-            <button>Reload</button>
+            <button id="reload">Reload</button>
             <div className="game">
               <div className="game-board">
                 <Board 
@@ -46,7 +46,13 @@ export class SampleGame extends React.Component {
                 />
               </div>
             </div>
-
+            <div id="checkbox">
+              <label for="showWrong">Show incorrect squares </label>
+              <input id="showWrong" type="checkbox"></input>
+            </div>
+            <div id="button">
+              <button id="checkBtn">Check</button>
+            </div>
           </div>
         );
     }
