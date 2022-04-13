@@ -20,12 +20,10 @@ export class Board extends React.Component {
 
     return (
       <div>
-        {console.log(this.props.rows)}
         {          
           rows.map( (row, i) => 
             (<div className="board-row" key={"row" + i}>
               {
-                // console.log(row)
                 row.map((col, j) => 
                   <Square key={"col" + j} 
                     canToggle={row[j].canToggle}

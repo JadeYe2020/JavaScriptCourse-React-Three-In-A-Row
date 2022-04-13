@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { Board } from './Board';
+import { Square } from "./Square";
 
 export class SampleGame extends React.Component {
     constructor(props) {
@@ -33,28 +34,43 @@ export class SampleGame extends React.Component {
       this.setState({ rows });
     }
 
-    render() {
-        return (
-          <div>
-            <h2>Sample Game</h2>
-            <button id="reload">Reload</button>
-            <div className="game">
-              <div className="game-board">
-                <Board 
-                  rows={this.state.rows}
-                  onClick={(i, j) => this.handleClick(i, j)}
-                />
-              </div>
-            </div>
-            <div id="checkbox">
-              <label for="showWrong">Show incorrect squares </label>
-              <input id="showWrong" type="checkbox"></input>
-            </div>
-            <div id="button">
-              <button id="checkBtn">Check</button>
+    correctSquare() {
+      const rows = this.state.rows;
+
+      // return a 2d array of boolean value
+      return rows.map((row) => 
+          [
+            row.map((square) => 
+              [square.correctState === square.currentState]
+            )
+          ]        
+        );
+    }
+
+    render() {      
+
+      return (
+        <div>
+          <h2>Sample Game</h2>
+          <button id="reload">Reload</button>
+          <div className="game">
+            <div className="game-board">
+              <Board 
+                rows={this.state.rows}
+                onClick={(i, j) => this.handleClick(i, j)}
+                correctSqr={ this.correctSquare() }
+              />
             </div>
           </div>
-        );
+          <div id="checkbox">
+            <label htmlFor="showWrong">Show incorrect squares </label>
+            <input id="showWrong" type="checkbox"></input>
+          </div>
+          <div id="button">
+            <button id="checkBtn">Check</button>
+          </div>
+        </div>
+      );
     }
 
 }
