@@ -47,6 +47,14 @@ body {
     background-color: gainsboro;
   }
 
+  .state1 {
+    background-color: blue;
+    color: white;
+}
+
+  .state2 {
+      background-color: white;
+  }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

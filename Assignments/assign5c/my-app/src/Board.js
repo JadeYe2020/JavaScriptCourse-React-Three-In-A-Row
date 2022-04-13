@@ -29,6 +29,9 @@ export class Board extends React.Component {
                 row.map((col, j) => 
                   <Square key={"col" + j} 
                     canToggle={row[j].canToggle}
+                    col={j}
+                    currentState={row[j].currentState}
+                    row={i}
                   />                  
                 )
               }                        
