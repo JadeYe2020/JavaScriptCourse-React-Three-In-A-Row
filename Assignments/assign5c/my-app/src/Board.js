@@ -4,7 +4,15 @@ import { Square } from './Square';
 export class Board extends React.Component {
 
     renderSquare(i) {
-
+        return (
+            <Square
+              canToggle={}
+              col={}
+              currentState={}
+              onClick={() => this.props.onClick(i)}
+              row={}
+            />
+          );
     }
     
     render() {
