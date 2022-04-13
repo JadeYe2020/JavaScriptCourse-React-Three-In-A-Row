@@ -35,6 +35,8 @@ export class SampleGame extends React.Component {
       }
       
       this.setState({ rows });
+
+      // console.log(this.state.rows);
     }
 
     correctSquare() {
@@ -42,15 +44,13 @@ export class SampleGame extends React.Component {
 
       // return a 2d array of boolean values or null values
       return rows.map((row) => 
-          [
             row.map((square) =>  {
               if (square.currentState === 0) {
                 return null;
               } else if (square.correctState !== square.currentState) {
                 return false;
-              } else { return true; } 
+              } else { return true; }
             })
-          ]        
         );
     }
 
@@ -65,6 +65,8 @@ export class SampleGame extends React.Component {
 
 
     render() {
+      let wrongSqr = this.correctSquare();
+      console.log(wrongSqr);
 
       return (
         <div>
@@ -75,7 +77,7 @@ export class SampleGame extends React.Component {
               <Board 
                 rows={this.state.rows}
                 onClick={(i, j) => this.handleClick(i, j)}
-                wrongSqr={ this.correctSquare() }
+                wrongSqr={ wrongSqr }
                 showWrong={this.state.showWrong}
                 // checkProgress= {this.state.checkProgress}
               />
@@ -88,9 +90,11 @@ export class SampleGame extends React.Component {
           <div id="button">
             <button id="checkBtn"
               onClick={() => {
+                console.log(this.state.rows);
                 this.setState({
-                  progress: checkProgress(this.state.rows),
-                });                
+                  progress: checkProgress(wrongSqr),
+                });
+                console.log(this.state.progress);
               } }>Check</button>
             <div>{this.state.progress}</div>
           </div>
@@ -102,21 +106,22 @@ export class SampleGame extends React.Component {
 // helper function to check how many incorrect squares
 function checkProgress(rows) {
   // let wrongSqr = 0;
-  let emptySqr = 0;
+  var emptySqr = 0;
 
   for (let i = 0; i < rows.length; i++) {
     for (let j = 0; j < rows.length; j++) {
-      if (rows[i][j] === false) {
+      let boolVal = rows[i][j];
+      if (boolVal === false) {
         return "Something is wrong.";
       } 
       
-      if (rows[i][j] === null) {
+      if (boolVal === null) {
         emptySqr ++;
       }
     }
   }
 
-  if (emptySqr) {
+  if (!emptySqr) {
     // when there's neither incorrect grid nor grey ones
     return "You did it!!";
   } else { 
