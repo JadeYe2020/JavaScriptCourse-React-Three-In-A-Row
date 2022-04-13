@@ -15,13 +15,22 @@ export class SampleGame extends React.Component {
         // axios.get('https://threeinarowpuzzle.herokuapp.com/random')
             .then(res => {
                 const rows = res.data.rows;
-                // console.log(rows);
                 this.setState({ rows });
             })
     }
 
-    handleClick(i) {
+    handleClick(i, j) {
+      const rows = this.state.rows;
 
+      if (rows[i][j].currentState === 2) {
+        // change the value from state 2 to state 0
+        rows[i][j].currentState = 0;
+      } else {
+        // from state 0 to 1 or from state 1 to 2
+        rows[i][j].currentState ++;
+      }
+      
+      this.setState({ rows });
     }
 
     render() {
@@ -33,7 +42,7 @@ export class SampleGame extends React.Component {
               <div className="game-board">
                 <Board 
                   rows={this.state.rows}
-                  onClick={(i) => this.handleClick(i)}
+                  onClick={(i, j) => this.handleClick(i, j)}
                 />
               </div>
             </div>

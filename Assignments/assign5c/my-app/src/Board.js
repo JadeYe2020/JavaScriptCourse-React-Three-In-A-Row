@@ -32,6 +32,7 @@ export class Board extends React.Component {
                     col={j}
                     currentState={row[j].currentState}
                     row={i}
+                    onClick={() => this.props.onClick(i, j)}
                   />                  
                 )
               }                        
