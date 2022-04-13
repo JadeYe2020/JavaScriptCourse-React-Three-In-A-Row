@@ -3,20 +3,10 @@ import { Square } from './Square';
 
 export class Board extends React.Component {
 
-  // renderSquare(i) {
-  //     return (
-  //         <Square
-  //           canToggle={this.props[i].canToggle}
-  //           col={i}
-  //           currentState={}
-  //           onClick={() => this.props.onClick(i)}
-  //           row={}
-  //         />
-  //       );
-  // }
   
   render() {
     const rows = this.props.rows;
+    let correctSqr = this.props.correctSqr;
 
     return (
       <div>
@@ -31,6 +21,8 @@ export class Board extends React.Component {
                     currentState={row[j].currentState}
                     row={i}
                     onClick={() => this.props.onClick(i, j)}
+                    isCorrect={correctSqr[i][j]}
+                    showWrong={this.props.showWrong}
                   />                  
                 )
               }                        

@@ -15,6 +15,10 @@ export function Square(props) {
     className += " state2"
   }
 
+  if (props.showWrong && props.isCorrect === false) {
+    className += " wrongSqr";
+  }
+
   return (
     <button className={ className }
     onClick={ onClick }

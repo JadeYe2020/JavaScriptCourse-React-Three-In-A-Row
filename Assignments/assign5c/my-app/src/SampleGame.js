@@ -65,8 +65,8 @@ export class SampleGame extends React.Component {
 
 
     render() {
-      let wrongSqr = this.correctSquare();
-      console.log(wrongSqr);
+      let correctSqr = this.correctSquare();
+      console.log(correctSqr);
 
       return (
         <div>
@@ -77,7 +77,7 @@ export class SampleGame extends React.Component {
               <Board 
                 rows={this.state.rows}
                 onClick={(i, j) => this.handleClick(i, j)}
-                wrongSqr={ wrongSqr }
+                correctSqr={ correctSqr }
                 showWrong={this.state.showWrong}
                 // checkProgress= {this.state.checkProgress}
               />
@@ -85,16 +85,20 @@ export class SampleGame extends React.Component {
           </div>
           <div id="checkbox">
             <label htmlFor="showWrong">Show incorrect squares </label>
-            <input id="showWrong" type="checkbox"></input>
+            <input id="showWrong" type="checkbox"
+            onChange={() => {
+              let showWrong = this.state.showWrong;
+              this.setState({
+                showWrong: !showWrong,
+              })
+            }}></input>
           </div>
           <div id="button">
             <button id="checkBtn"
               onClick={() => {
-                console.log(this.state.rows);
                 this.setState({
-                  progress: checkProgress(wrongSqr),
-                });
-                console.log(this.state.progress);
+                  progress: checkProgress(correctSqr),
+                });                
               } }>Check</button>
             <div>{this.state.progress}</div>
           </div>
