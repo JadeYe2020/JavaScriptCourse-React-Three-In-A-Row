@@ -12,6 +12,7 @@ export class SampleGame extends React.Component {
 
     componentDidMount() {
         axios.get('https://threeinarowpuzzle.herokuapp.com/sample')
+        // axios.get('https://threeinarowpuzzle.herokuapp.com/random')
             .then(res => {
                 const rows = res.data.rows;
                 // console.log(rows);
@@ -31,7 +32,7 @@ export class SampleGame extends React.Component {
             <div className="game">
               <div className="game-board">
                 <Board 
-                  squares={this.state.rows}
+                  rows={this.state.rows}
                   onClick={(i) => this.handleClick(i)}
                 />
               </div>
