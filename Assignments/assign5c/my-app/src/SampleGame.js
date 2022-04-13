@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import { Board } from './Board';
 
 export class SampleGame extends React.Component {
     state = {
