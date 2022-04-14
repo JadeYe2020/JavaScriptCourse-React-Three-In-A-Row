@@ -6,7 +6,7 @@ export class Board extends React.Component {
   
   render() {
     const rows = this.props.rows;
-    let correctSqr = this.props.correctSqr;
+    let currentResults = this.props.currentResults;
 
     return (
       <div>
@@ -21,7 +21,7 @@ export class Board extends React.Component {
                     currentState={row[j].currentState}
                     row={i}
                     onClick={() => this.props.onClick(i, j)}
-                    isCorrect={correctSqr[i][j]}
+                    isCorrect={currentResults[i][j]}
                     showWrong={this.props.showWrong}
                   />                  
                 )

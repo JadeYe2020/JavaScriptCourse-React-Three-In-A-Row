@@ -7,8 +7,8 @@ export class SampleGame extends React.Component {
         super(props);
         this.state = {
             rows: [],
-            showWrong: false,
-            progress: "",
+            showWrong: false, // determine whether to show wrong squares
+            progress: "", // message after check
         };
     }       
 
@@ -20,6 +20,7 @@ export class SampleGame extends React.Component {
         })
     }
 
+    // the onClick handler for squares
     handleClick(i, j) {
       const rows = this.state.rows;
 
@@ -34,21 +35,23 @@ export class SampleGame extends React.Component {
       this.setState({ rows });
     }
 
-    correctSquare() {
+    // a function to get the current results of all squares
+    currentResults() {
       const rows = this.state.rows;
 
       // return a 2d array of boolean values or null values
       return rows.map((row) => 
         row.map((square) =>  {
           if (square.currentState === 0) {
-            return null;
+            return null; // empty squares
           } else if (square.correctState !== square.currentState) {
-            return false;
+            return false; // wrong squares
           } else { return true; }
         })
       );
     }
 
+    // event handler for checkbox onChange
     handleChange() {      
       const showWrong = this.state.showWrong;
       this.setState({
@@ -56,8 +59,9 @@ export class SampleGame extends React.Component {
       })
     }
 
+    // event handler for check button onClick
     checkBtnClicked() {
-      const correctSqr = this.correctSquare();
+      const correctSqr = this.currentResults();
 
       this.setState({
         progress: checkProgress(correctSqr),
@@ -76,7 +80,7 @@ export class SampleGame extends React.Component {
               <Board 
                 rows={this.state.rows}
                 onClick={(i, j) => this.handleClick(i, j)}
-                correctSqr={ this.correctSquare() }
+                currentResults={ this.currentResults() }
                 showWrong={this.state.showWrong}
               />
             </div>
