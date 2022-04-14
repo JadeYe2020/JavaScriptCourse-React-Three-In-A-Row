@@ -3,15 +3,14 @@ import axios from 'axios';
 import { Board } from './Board';
 
 export class RandomGame extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            rows: [],
-            // checkProgress: false,
-            showWrong: false,
-            progress: "",
-        };
-    }       
+  constructor(props) {
+    super(props);
+    this.state = {
+        rows: [],
+        showWrong: false, // determine whether to show wrong squares
+        progress: "", // message after check
+    };
+  }          
 
     componentDidMount() {
         axios.get('https://threeinarowpuzzle.herokuapp.com/random')
@@ -21,6 +20,7 @@ export class RandomGame extends React.Component {
             })
     }
 
+    // the onClick handler for squares
     handleClick(i, j) {
       const rows = this.state.rows;
 
@@ -33,38 +33,43 @@ export class RandomGame extends React.Component {
       }
       
       this.setState({ rows });
-
-      // console.log(this.state.rows);
     }
 
-    correctSquare() {
+    // a function to get the current results of all squares
+    currentResults() {
       const rows = this.state.rows;
 
       // return a 2d array of boolean values or null values
       return rows.map((row) => 
-            row.map((square) =>  {
-              if (square.currentState === 0) {
-                return null;
-              } else if (square.correctState !== square.currentState) {
-                return false;
-              } else { return true; }
-            })
-        );
+        row.map((square) =>  {
+          if (square.currentState === 0) {
+            return null; // empty squares
+          } else if (square.correctState !== square.currentState) {
+            return false; // wrong squares
+          } else { return true; }
+        })
+      );
     }
 
-    onChecked() {
-      let showWrong = this.state.showWrong;
-
+    // event handler for checkbox onChange
+    handleChange() {      
+      const showWrong = this.state.showWrong;
       this.setState({
-        showWrong: !showWrong
+        showWrong: !showWrong,
       })
     }
 
+    // event handler for check button onClick
+    checkBtnClicked() {
+      const correctSqr = this.currentResults();
+
+      this.setState({
+        progress: checkProgress(correctSqr),
+      });
+    }
 
 
-    render() {
-      let correctSqr = this.correctSquare();
-      console.log(correctSqr);
+    render() {     
 
       return (
         <div>
@@ -75,29 +80,19 @@ export class RandomGame extends React.Component {
               <Board 
                 rows={this.state.rows}
                 onClick={(i, j) => this.handleClick(i, j)}
-                correctSqr={ correctSqr }
+                currentResults={ this.currentResults() }
                 showWrong={this.state.showWrong}
-                // checkProgress= {this.state.checkProgress}
               />
             </div>
           </div>
           <div id="checkbox">
             <label htmlFor="showWrong">Show incorrect squares </label>
             <input id="showWrong" type="checkbox"
-            onChange={() => {
-              let showWrong = this.state.showWrong;
-              this.setState({
-                showWrong: !showWrong,
-              })
-            }}></input>
+            onChange={() => this.handleChange()}></input>
           </div>
           <div id="button">
             <button id="checkBtn"
-              onClick={() => {
-                this.setState({
-                  progress: checkProgress(correctSqr),
-                });                
-              } }>Check</button>
+              onClick={() => this.checkBtnClicked()}>Check</button>
             <div>{this.state.progress}</div>
           </div>
         </div>
