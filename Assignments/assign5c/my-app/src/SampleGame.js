@@ -22,7 +22,7 @@ export class SampleGame extends React.Component {
 
   // the onClick handler for squares
   handleClick(i, j) {
-    const rows = this.state.rows;
+    const rows = this.state.rows.slice();
 
     if (rows[i][j].currentState === 2) {
       // change the value from state 2 to state 0
