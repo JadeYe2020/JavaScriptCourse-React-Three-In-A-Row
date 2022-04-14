@@ -99,14 +99,13 @@ export class RandomGame extends React.Component {
   }
 }
 
-// helper function to check how many incorrect squares
-function checkProgress(rows) {
-  // let wrongSqr = 0;
+// helper function to check squares and return a message
+function checkProgress(results) {
   var emptySqr = 0;
 
-  for (let i = 0; i < rows.length; i++) {
-    for (let j = 0; j < rows.length; j++) {
-      let boolVal = rows[i][j];
+  for (let i = 0; i < results.length; i++) {
+    for (let j = 0; j < results.length; j++) {
+      let boolVal = results[i][j];
       if (boolVal === false) {
         return "Something is wrong.";
       } 
@@ -117,11 +116,11 @@ function checkProgress(rows) {
     }
   }
 
-  if (!emptySqr) {
+  if (emptySqr > 0) {
+    // there's still grids at empty state
+    return "So far so good"; 
+  } else {
     // when there's neither incorrect grid nor grey ones
     return "You did it!!";
-  } else { 
-    // when there's no incorrect grid but there's still grids at empty state
-    return "So far so good"; 
   }
 }
