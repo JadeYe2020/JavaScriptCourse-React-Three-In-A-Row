@@ -2,11 +2,10 @@ import React from "react";
 import { Square } from './Square';
 
 export class Board extends React.Component {
-
   
   render() {
     const rows = this.props.rows;
-    let currentResults = this.props.currentResults;
+    const currentResults = this.props.currentResults;
 
     return (
       <div>
@@ -16,10 +15,10 @@ export class Board extends React.Component {
               {
                 row.map((col, j) => 
                   <Square key={"col" + j} 
-                    canToggle={row[j].canToggle}
-                    col={j}
-                    currentState={row[j].currentState}
+                    canToggle={col.canToggle}                    
                     row={i}
+                    col={j}
+                    currentState={col.currentState}
                     onClick={() => this.props.onClick(i, j)}
                     isCorrect={currentResults[i][j]}
                     showWrong={this.props.showWrong}

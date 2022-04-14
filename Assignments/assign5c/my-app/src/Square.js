@@ -1,5 +1,5 @@
 export function Square(props) {
-  let className = "square";
+  let className = "square"; // default class
   let onClick = null;
   
   if (props.canToggle) {
@@ -7,6 +7,7 @@ export function Square(props) {
     onClick = props.onClick;
   }
   
+  // add a class to indicate the state/color
   if (props.currentState === 0) {
     className += " state0"
   } else if (props.currentState === 1) {
@@ -15,6 +16,7 @@ export function Square(props) {
     className += " state2"
   }
 
+  // when checkbox is checked and the current result of the sqare is false
   if (props.showWrong && props.isCorrect === false) {
     className += " wrongSqr";
   }
