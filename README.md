@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# React-based Three-in-a-Row Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Summary
+* The game itself is based on the Daily 3-In-A-Row game on [BrainBashers](https://www.brainbashers.com/show3inarow.asp). 
+* This React application uses the API data from both the original sample (https://threeinarowpuzzle.herokuapp.com/sample) and random links (https://threeinarowpuzzle.herokuapp.com/random).
+* The React application makes use of React Routing to allow both the sample game grid and a random one to be chosen via links.
 
-## Available Scripts
+## How to play
+* __Rules:__
+  - Fill the grid with squares containing Blue and White.
+  - A 3-In-A-Row of the same colour is not allowed.
+  - Each row and column has an equal number of Blue and White squares.
+  - Squares that are assigned a color when the puzzle loads are not changeable with mouse clicks.
 
-In the project directory, you can run:
+* __Mouse Usage__
+Left-click = Blank (color Grey) >> Blue >> White >> Blank
 
-### `npm start`
+* __Checking__
+If you click 'Check' the system will check for incorrect squares and display one of the following status outputs:
+  1.	“So far so good” (all colored squares are correct but the puzzle is incomplete)
+  2.	“Something is wrong” (one or more of the colored squares is incorrectly assigned)
+  3.	“You did it!” (all squares are correct and the puzzle has been completely filled in)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  If 'Show incorrect squares' is checked at the same time, then they will be marked with a red border.
+  ![a screenshot of checking and showing incorrect squares](./assets/images/showIncorrect.png)
